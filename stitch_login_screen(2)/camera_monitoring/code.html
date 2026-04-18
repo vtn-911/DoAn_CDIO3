@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Campus Security Monitoring | Academic Curator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "inverse-primary": "#a5c8ff",
+              "surface-container-highest": "#e5e2e1",
+              "primary-fixed": "#d4e3ff",
+              "on-primary-fixed-variant": "#004785",
+              "tertiary": "#7d5400",
+              "primary-container": "#0075d5",
+              "on-tertiary-fixed": "#281800",
+              "secondary-container": "#85fa51",
+              "secondary": "#266d00",
+              "surface-bright": "#fcf9f8",
+              "inverse-surface": "#313030",
+              "on-error": "#ffffff",
+              "surface": "#fcf9f8",
+              "on-primary-container": "#fefcff",
+              "surface-variant": "#e5e2e1",
+              "on-tertiary-container": "#fffbff",
+              "on-secondary-fixed": "#062100",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed": "#ffddb0",
+              "surface-container-lowest": "#ffffff",
+              "surface-container": "#f0edec",
+              "on-error-container": "#93000a",
+              "secondary-fixed-dim": "#6de039",
+              "outline-variant": "#c0c7d6",
+              "on-primary": "#ffffff",
+              "on-tertiary-fixed-variant": "#614000",
+              "tertiary-fixed-dim": "#ffba45",
+              "secondary-fixed": "#88fd54",
+              "on-secondary-fixed-variant": "#1a5200",
+              "on-secondary-container": "#287100",
+              "error-container": "#ffdad6",
+              "tertiary-container": "#9d6a00",
+              "on-primary-fixed": "#001c3a",
+              "on-secondary": "#ffffff",
+              "on-surface": "#1c1b1b",
+              "primary-fixed-dim": "#a5c8ff",
+              "surface-tint": "#005fae",
+              "error": "#ba1a1a",
+              "background": "#fcf9f8",
+              "inverse-on-surface": "#f3f0ef",
+              "surface-dim": "#dcd9d9",
+              "on-background": "#1c1b1b",
+              "primary": "#005daa",
+              "surface-container-high": "#ebe7e7",
+              "surface-container-low": "#f6f3f2",
+              "outline": "#707785",
+              "on-surface-variant": "#404753"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .bg-glass {
+        background: rgba(28, 27, 27, 0.6);
+        backdrop-filter: blur(12px);
+      }
+      .tonal-shift-bg {
+        background-color: #f6f3f2;
+      }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body flex min-h-screen overflow-hidden">
+<!-- SideNavBar (Authority: Shared Components JSON) -->
+<aside class="h-screen sticky left-0 w-64 border-r border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 flex flex-col py-4 space-y-1 font-inter text-sm font-medium transition-all duration-200 ease-in-out">
+<div class="px-6 mb-8">
+<h1 class="text-lg font-black text-blue-800 dark:text-blue-200">Curator Admin</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant opacity-70">Premium Management</p>
+</div>
+<nav class="flex-1 overflow-y-auto px-2 space-y-1">
+<!-- Navigation Items Mapping -->
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span>User Management</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Teacher Management</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span>Student Management</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="class">class</span>
+<span>Class Management</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span>Reports</span>
+</a>
+<!-- ACTIVE TAB: Camera (Selected based on Page Intent) -->
+<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm rounded-lg mx-2 transition-all duration-200 font-semibold" href="#">
+<span class="material-symbols-outlined" data-icon="videocam" style="font-variation-settings: 'FILL' 1;">videocam</span>
+<span>Camera</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span>Finance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="rule">rule</span>
+<span>Attendance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span>Health Tracking</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span>Notifications</span>
+</a>
+</nav>
+<div class="px-2 pt-4 mt-auto border-t border-slate-200 dark:border-slate-800 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- TopAppBar (Authority: Shared Components JSON) -->
+<header class="w-full sticky top-0 z-40 bg-white dark:bg-slate-900 shadow-sm dark:shadow-none border-b border-slate-100 dark:border-slate-800 flex items-center justify-between px-6 py-3 font-inter antialiased">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Academic Curator</span>
+<div class="hidden md:flex bg-slate-100 dark:bg-slate-800 rounded-full px-4 py-1.5 items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none text-sm focus:ring-0 text-on-surface-variant w-48" placeholder="Search facilities..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors active:scale-95 duration-150 rounded-full relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="h-8 w-px bg-slate-200 dark:bg-slate-700 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold text-slate-900 dark:text-slate-100">Admin Panel</p>
+<p class="text-[10px] text-slate-500">System Administrator</p>
+</div>
+<img alt="Administrator Avatar" class="h-9 w-9 rounded-full object-cover border-2 border-primary-container" data-alt="portrait of a professional male administrator in a modern office setting with warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6bqqBqTPdFZB4aRmKc5oi37va_fB2W8S74MMbCJWPmpV29lOFuw3gXkpUjJcEBs_JTCM1o1rfhyR6KbpxIxXqSB_MIRKa6F91OMxwCdqLMmzxN30jifXHlP93eg0dIKTAn8Fa9UdSegG2DpygZ2H-3X1U73P6FrHfNPZLzsZKV5P6ef26D3snLRa9_bVJbxubctvEjR3xNJkpXeOp9AMKtnE85RfoX8bPhANwyhOuvCrJf0huxjYXtvqgrU5XQoPXLiuNoejk3T8"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Left Sidebar within content: Camera List -->
+<aside class="w-72 bg-surface-container-low border-r border-outline-variant/20 flex flex-col">
+<div class="p-6">
+<span class="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant mb-1 block">Security Node</span>
+<h2 class="text-xl font-bold text-on-surface">Camera List</h2>
+</div>
+<div class="flex-1 overflow-y-auto px-4 pb-6 space-y-2">
+<!-- Active List Item -->
+<button class="w-full flex items-center justify-between p-3 rounded-xl bg-surface-container-lowest shadow-sm border-l-4 border-primary transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="videocam" style="font-variation-settings: 'FILL' 1;">videocam</span>
+<div class="text-left">
+<p class="text-sm font-bold text-on-surface">Main Gate</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Stream 4K-01</p>
+</div>
+</div>
+<span class="w-2 h-2 rounded-full bg-secondary-fixed shadow-[0_0_8px_rgba(136,253,84,0.6)]"></span>
+</button>
+<!-- Other Items -->
+<button class="w-full flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-high transition-all group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface" data-icon="videocam">videocam</span>
+<div class="text-left">
+<p class="text-sm font-medium text-on-surface">Classroom 101</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Stream 2K-02</p>
+</div>
+</div>
+<span class="w-2 h-2 rounded-full bg-secondary-fixed"></span>
+</button>
+<button class="w-full flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-high transition-all group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface" data-icon="videocam">videocam</span>
+<div class="text-left">
+<p class="text-sm font-medium text-on-surface">Playground</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Stream 4K-03</p>
+</div>
+</div>
+<span class="w-2 h-2 rounded-full bg-secondary-fixed"></span>
+</button>
+<button class="w-full flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-high transition-all group opacity-60">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="videocam_off">videocam_off</span>
+<div class="text-left">
+<p class="text-sm font-medium text-on-surface">Library</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Maintenance</p>
+</div>
+</div>
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+</button>
+<button class="w-full flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-high transition-all group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface" data-icon="videocam">videocam</span>
+<div class="text-left">
+<p class="text-sm font-medium text-on-surface">Teacher's Lounge</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Stream 2K-05</p>
+</div>
+</div>
+<span class="w-2 h-2 rounded-full bg-secondary-fixed"></span>
+</button>
+<button class="w-full flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-high transition-all group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface" data-icon="videocam">videocam</span>
+<div class="text-left">
+<p class="text-sm font-medium text-on-surface">Parking Lot</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Stream 4K-06</p>
+</div>
+</div>
+<span class="w-2 h-2 rounded-full bg-secondary-fixed"></span>
+</button>
+</div>
+<div class="p-4 mt-auto">
+<div class="bg-primary/5 rounded-xl p-4 border border-primary/10">
+<p class="text-xs font-bold text-primary mb-2">Security Status</p>
+<div class="flex items-center gap-2 mb-3">
+<div class="h-2 flex-1 bg-secondary-fixed rounded-full"></div>
+<span class="text-[10px] font-bold">5/6 ACTIVE</span>
+</div>
+<button class="w-full py-2 bg-primary text-white text-[10px] font-bold rounded-lg uppercase tracking-widest active:scale-95 transition-all">Record All Feeds</button>
+</div>
+</div>
+</aside>
+<!-- Monitoring Grid -->
+<section class="flex-1 p-8 overflow-y-auto bg-background">
+<div class="flex items-end justify-between mb-8">
+<div>
+<span class="text-xs font-bold text-primary uppercase tracking-[0.2em] mb-2 block">Live Surveillance</span>
+<h1 class="text-3xl font-black text-on-surface tracking-tight">Campus Security Monitoring</h1>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-highest rounded-lg text-sm font-semibold hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="grid_view">grid_view</span>
+                            Layout
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary-container text-white rounded-lg text-sm font-bold shadow-lg shadow-primary/20 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="emergency">emergency</span>
+                            Alert Protocol
+                        </button>
+</div>
+</div>
+<!-- Camera Grid 3x2 -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Feed 1: Main Gate -->
+<div class="group relative aspect-video bg-inverse-surface rounded-xl overflow-hidden shadow-2xl border border-white/5">
+<img alt="Main Gate Camera" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" data-alt="security camera view of a modern school entrance with glass doors and a paved walkway, bright daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAICheFhDe_hVTh0QDIDZ03oCPnGQ7CDUPn-DxU7-jhXab69_9nVhQ0e_X1ItZUA7aCAd70wpcyFpO3JYIjVQqa0iYKoHdFoOdkySP0yPxjElZXH-ey30cF8T5T61CTaEvxHuZh4WouXuKnY5z2rqwq3bi0wip9-IpyFLvGb8s_EUK0PAnFS4WrZYK4vhJRT7aQAv-s_DHKR11kbxzEY3kxohkW0EPUXRjEivaoJhvYS_Ji8alCjiJL4Kd0zeIgxcfL6TAlp6crdX0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40"></div>
+<div class="absolute top-4 left-4 flex items-center gap-2">
+<div class="px-2 py-1 bg-red-600 rounded text-[10px] font-bold text-white flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                                LIVE
+                            </div>
+<span class="bg-glass px-2 py-1 rounded text-[10px] font-bold text-white uppercase tracking-wider">CAM-01: MAIN GATE</span>
+</div>
+<div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 bg-glass rounded-full text-white hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="fullscreen">fullscreen</span>
+</button>
+</div>
+</div>
+<!-- Feed 2: Classroom 101 -->
+<div class="group relative aspect-video bg-inverse-surface rounded-xl overflow-hidden shadow-2xl border border-white/5">
+<img alt="Classroom 101 Camera" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" data-alt="overhead high angle view of a tidy school classroom with wooden desks and a whiteboard, soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0H_H0t8HO-8RdyFACKprMRKn4ovABkE31zT1NsusM-PgoOnoD7cFznplrZQJvbBeqcVOzRhsIRfBWQYnbCT0gu17yPh2cV50DF14xav9xJg2Sg9eYa13lDZ79fEwnSRaUkLxs45mCG1Vmm99qoLLH3IMcJMjSC9FeUKEoGkjWjnDmbyAHWzTNAHUTWRHM2Ui-_Blo8fleHKnspIVbGX5sYQ722-L_GhRaDYXuSo_Ru6CSoKXYV94C4fi4c0aASYddI1xf4QGlsA4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40"></div>
+<div class="absolute top-4 left-4 flex items-center gap-2">
+<div class="px-2 py-1 bg-red-600 rounded text-[10px] font-bold text-white flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                                LIVE
+                            </div>
+<span class="bg-glass px-2 py-1 rounded text-[10px] font-bold text-white uppercase tracking-wider">CAM-02: CLASS 101</span>
+</div>
+<div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 bg-glass rounded-full text-white hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="fullscreen">fullscreen</span>
+</button>
+</div>
+</div>
+<!-- Feed 3: Playground -->
+<div class="group relative aspect-video bg-inverse-surface rounded-xl overflow-hidden shadow-2xl border border-white/5">
+<img alt="Playground Camera" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" data-alt="wide security shot of an empty colorful playground with slides and swings during a clear afternoon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRzcUB5CT5L8kaC-JCESbWua1IZUpJOsrUSTR3pEccJebFfKNBCC8x77sP_doKZHOJ7QkUl2kko5yl3gamUvwTcGNBJPtt3qamCQyDp7jAWZOhA_uxwpgHi7JI1hAO8ryymLoQg_IHTrt1Xx5eZwm6jGZdW9052Pi8i7PE-OvrHpS3vUf98WHX9OA_Ilc0W1jXyhuOsz_wsVt40H_3X5LazWRXKWidLTtHGoviCwHv4Jf-B3-_ewkRMHwR8_4KsB8oFjuAM4i0KV0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40"></div>
+<div class="absolute top-4 left-4 flex items-center gap-2">
+<div class="px-2 py-1 bg-red-600 rounded text-[10px] font-bold text-white flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                                LIVE
+                            </div>
+<span class="bg-glass px-2 py-1 rounded text-[10px] font-bold text-white uppercase tracking-wider">CAM-03: PLAYGROUND</span>
+</div>
+<div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 bg-glass rounded-full text-white hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="fullscreen">fullscreen</span>
+</button>
+</div>
+</div>
+<!-- Feed 4: Library -->
+<div class="group relative aspect-video bg-inverse-surface rounded-xl overflow-hidden shadow-2xl border border-white/5 flex items-center justify-center">
+<div class="absolute inset-0 bg-slate-900 flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-slate-700 text-6xl mb-4" data-icon="signal_disconnected">signal_disconnected</span>
+<p class="text-slate-500 font-bold uppercase tracking-widest text-xs">Offline - Reconnecting</p>
+</div>
+<div class="absolute top-4 left-4 flex items-center gap-2">
+<div class="px-2 py-1 bg-slate-700 rounded text-[10px] font-bold text-white flex items-center gap-1">
+                                OFF
+                            </div>
+<span class="bg-glass px-2 py-1 rounded text-[10px] font-bold text-white uppercase tracking-wider">CAM-04: LIBRARY</span>
+</div>
+</div>
+<!-- Feed 5: Teacher's Lounge -->
+<div class="group relative aspect-video bg-inverse-surface rounded-xl overflow-hidden shadow-2xl border border-white/5">
+<img alt="Teacher's Lounge Camera" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" data-alt="interior view of a modern staff room with sofas, a coffee table, and large windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-9pLZXM_8ZPhq2WdrKy2N-vYA6Z52Y2SI1vqNWRR6AE6E4FLKGOaf5aC8V4zMxENNOJCDwpiCuJVXkhAyg7sFVplxWhsBForZDfPYVAhtXlJ2P3Oiz32rJAPnPcy8U02bex5JYFMTo-mir7tCgjHGWNVxFU4T1xKfbwPYpwrPunCDVR6YsTaIfvPmTbV7Zm4hs_G5K-PxeyAtRfFMeZyxyOdTOWiGkr-zFRyLG2xYZAITtP9JiVjNCsCzPcqA65B678sRefQtKUQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40"></div>
+<div class="absolute top-4 left-4 flex items-center gap-2">
+<div class="px-2 py-1 bg-red-600 rounded text-[10px] font-bold text-white flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                                LIVE
+                            </div>
+<span class="bg-glass px-2 py-1 rounded text-[10px] font-bold text-white uppercase tracking-wider">CAM-05: STAFF ROOM</span>
+</div>
+<div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 bg-glass rounded-full text-white hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="fullscreen">fullscreen</span>
+</button>
+</div>
+</div>
+<!-- Feed 6: Parking Lot -->
+<div class="group relative aspect-video bg-inverse-surface rounded-xl overflow-hidden shadow-2xl border border-white/5">
+<img alt="Parking Lot Camera" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" data-alt="top-down surveillance view of an asphalt parking lot with white marked spaces and several parked vehicles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCom2weC4oWWbDM-jz9Zh9CuefLB3Y_2iYUjj71uJPvANFBpQoDa4eBZD8DnwuAJ-C9-Gms3uNzuOPdf9-zrJFH1J_4XufOCLFrFDh5w-A0WUacOU_ecwPq3JU0aBdbG21lHFkzM4DxGQb3ku2oHbv-zGCxO-y6gPurhzDMUGNxcXT6j8R9COVOA6-WaRbHR6DoC0Rzu_SDCh1hXQOMyut-pKk02skwgx7exllC5y4H0SPECl1B9S43mnDx-l1Q3fb685xGCT_52pw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40"></div>
+<div class="absolute top-4 left-4 flex items-center gap-2">
+<div class="px-2 py-1 bg-red-600 rounded text-[10px] font-bold text-white flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                                LIVE
+                            </div>
+<span class="bg-glass px-2 py-1 rounded text-[10px] font-bold text-white uppercase tracking-wider">CAM-06: PARKING</span>
+</div>
+<div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 bg-glass rounded-full text-white hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="fullscreen">fullscreen</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bento Style Stats Section -->
+<div class="mt-8 grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="md:col-span-2 bg-surface-container-lowest p-6 rounded-2xl shadow-sm border-l-4 border-primary flex items-center justify-between">
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Storage Status</p>
+<h3 class="text-2xl font-black text-on-surface">14.2 TB Remaining</h3>
+<p class="text-xs text-on-surface-variant mt-1">Cloud Retention: 30 Days Active</p>
+</div>
+<div class="relative w-16 h-16">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-high" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-width="6"></circle>
+<circle class="text-primary" cx="32" cy="32" fill="transparent" r="28" stroke="currentColor" stroke-dasharray="175" stroke-dashoffset="40" stroke-width="6"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center text-[10px] font-bold">78%</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="verified_user">verified_user</span>
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Encryption</p>
+<h3 class="text-lg font-bold text-on-surface">AES-256</h3>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm flex flex-col justify-between">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="history">history</span>
+<div>
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Last Backup</p>
+<h3 class="text-lg font-bold text-on-surface">14m ago</h3>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

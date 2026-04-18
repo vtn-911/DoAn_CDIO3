@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Notification Management | Academic Curator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#005fae",
+                        "primary-fixed": "#d4e3ff",
+                        "tertiary": "#7d5400",
+                        "surface-container-high": "#ebe7e7",
+                        "surface": "#fcf9f8",
+                        "tertiary-fixed": "#ffddb0",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#614000",
+                        "on-primary-fixed-variant": "#004785",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dcd9d9",
+                        "outline-variant": "#c0c7d6",
+                        "background": "#fcf9f8",
+                        "secondary-container": "#85fa51",
+                        "primary": "#005daa",
+                        "on-primary-fixed": "#001c3a",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#1c1b1b",
+                        "surface-bright": "#fcf9f8",
+                        "on-secondary-fixed": "#062100",
+                        "on-secondary-fixed-variant": "#1a5200",
+                        "tertiary-fixed-dim": "#ffba45",
+                        "surface-container-low": "#f6f3f2",
+                        "inverse-surface": "#313030",
+                        "secondary": "#266d00",
+                        "tertiary-container": "#9d6a00",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#0075d5",
+                        "primary-fixed-dim": "#a5c8ff",
+                        "on-surface": "#1c1b1b",
+                        "on-secondary-container": "#287100",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#88fd54",
+                        "outline": "#707785",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#6de039",
+                        "on-tertiary-container": "#fffbff",
+                        "surface-container-highest": "#e5e2e1",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-tertiary-fixed": "#281800",
+                        "surface-container": "#f0edec",
+                        "on-primary-container": "#fefcff",
+                        "on-surface-variant": "#404753",
+                        "inverse-primary": "#a5c8ff",
+                        "surface-variant": "#e5e2e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased">
+<div class="flex min-h-screen">
+<!-- SideNavBar Component -->
+<aside class="h-screen sticky left-0 w-64 border-r border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 flex flex-col py-4 space-y-1 font-inter text-sm font-medium">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="School Logo" data-alt="Minimalist architectural school crest in deep blue and white set against a clean studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3fAEAS0VEFxBE7CvvMH8c_PqSwynLfPtIPuNPMr0Mq5u2hB2eZvVGd-ZsrJl1wKtgsNE48EKizKGuexlUEyoZsgJyizci8VA7jxbSi0_aiuLEHjRZZ4gkSwDz_Xs_UG_AOaddrM9ChDnaZDZplnks6s52BNYQZ_a00sdlL7QIuZaIy35W23D_mDei26YpbUC4MdFT-PvPRZ8nyFqlqu1DFLxe-qKUdzDG2PRnE2ImRUTqmnAnjyEFtKM99CPsmmVkxtACqO2AX4k"/>
+</div>
+<div>
+<h1 class="text-lg font-black text-blue-800 dark:text-blue-200 tracking-tight leading-none">Curator Admin</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mt-1">Premium Management</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-4 py-2.5 mx-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-3">home</span> Dashboard
+                </a>
+<a class="flex items-center px-4 py-2.5 mx-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-3">person</span> User Management
+                </a>
+<a class="flex items-center px-4 py-2.5 mx-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-3">group</span> Teacher Management
+                </a>
+<a class="flex items-center px-4 py-2.5 mx-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-3">school</span> Student Management
+                </a>
+<a class="flex items-center px-4 py-2.5 mx-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-3">class</span> Class Management
+                </a>
+<a class="flex items-center px-4 py-2.5 mx-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-3">assessment</span> Reports
+                </a>
+<a class="flex items-center px-4 py-2.5 mx-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-3">videocam</span> Camera
+                </a>
+<a class="flex items-center px-4 py-2.5 mx-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-3">payments</span> Finance
+                </a>
+<a class="flex items-center px-4 py-2.5 mx-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-3">rule</span> Attendance
+                </a>
+<a class="flex items-center px-4 py-2.5 mx-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-3">favorite</span> Health Tracking
+                </a>
+<a class="flex items-center px-4 py-2.5 mx-2 bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-3" style="font-variation-settings: 'FILL' 1;">notifications</span> Notifications
+                </a>
+</nav>
+<div class="pt-4 border-t border-slate-200 dark:border-slate-800">
+<a class="flex items-center px-4 py-2 mx-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-3">settings</span> Settings
+                </a>
+<a class="flex items-center px-4 py-2 mx-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined mr-3">logout</span> Logout
+                </a>
+</div>
+</aside>
+<main class="flex-1 flex flex-col min-w-0">
+<!-- TopNavBar Component -->
+<header class="w-full sticky top-0 z-40 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 shadow-sm dark:shadow-none flex items-center justify-between px-6 py-3 font-inter antialiased">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="w-full pl-10 pr-4 py-1.5 bg-surface-container-low border-none rounded-full text-sm focus:ring-2 focus:ring-primary/20" placeholder="Search Scholar Metric..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-slate-500 hover:bg-slate-50 transition-colors active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-8 w-px bg-slate-200 dark:bg-slate-700"></div>
+<div class="flex items-center gap-3">
+<span class="text-sm font-semibold text-slate-700 dark:text-slate-200 hidden sm:block">Administrator</span>
+<img alt="Administrator Avatar" class="w-8 h-8 rounded-full border-2 border-primary/10 object-cover" data-alt="professional portrait of a senior school administrator with a kind expression in a modern office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaUquL3SQE27ej2Ybkqu-hawCxjWmeG8QISvEy_XYpfHzHfxjCYolaD7jjgiZVWlS0OYNRRSALGbBmEfQ8t_yxbhNSnnKg18JT7M0yvlAzin6KARJaVzn3bJw-QSgqZsfBKeTkY2QDCB5ExS9yauwx2jgUfhzs_L7NEE0J3Sm__KQBi6hDQCPlSUUXTQx_Kt9Hf-GTHHwdolyrhlcPnY_UdmcVeGJQ_WxQHNrERdzTr8PlSPE82FaQrQbmF-qHFuda-UXaOuq38l8"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<div class="p-8 space-y-8 overflow-y-auto">
+<!-- Page Header (Editorial Voice) -->
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">COMMUNICATION HUB</span>
+<h2 class="text-3xl font-black text-on-background tracking-tight">Notification Management</h2>
+</div>
+<!-- Bento Layout for Inbox and Compose -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Inbox Section (Left Col) -->
+<div class="col-span-12 lg:col-span-7 space-y-6">
+<div class="bg-surface-container-low rounded-xl p-1 flex items-center gap-1 w-fit mb-4">
+<button class="px-6 py-2 bg-white text-primary text-sm font-bold rounded-lg shadow-sm">Received</button>
+<button class="px-6 py-2 text-on-surface-variant text-sm font-medium hover:bg-white/50 rounded-lg transition-all">Sent</button>
+<button class="px-6 py-2 text-on-surface-variant text-sm font-medium hover:bg-white/50 rounded-lg transition-all">Drafts</button>
+</div>
+<div class="space-y-3">
+<!-- Priority Notification Card -->
+<div class="bg-surface-container-lowest p-5 rounded-lg shadow-sm border-l-4 border-primary group hover:bg-blue-50/30 transition-all duration-200 cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+<img alt="Sender" class="w-full h-full object-cover" data-alt="Portrait of a female educator with glasses, professional teacher profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_WuI_iXUH8yJYrZwtsrdoSOazS9gnfjqv-PwX0wgJXzXtaEgdoX9GSDLV1uczsw-nAnHdKWOZArVYu4ynZZwlHdOGXrdK0TdzBB-mkHBBqodUnVsxH_u3Q92du6jIgL9I3JCey5e9U5n5waxSeWHC05LpVIekOtr_ZarOFrTS_TfZ9SjMkoSPSYI3TxZQ4dETa89Pq_RqvQaaPxvl0UdXk5y9ifh4Z1He9Og3P94phtXFin3ClQykN0ctH9ZVwpFltgL-1F51dsg"/>
+</div>
+<div>
+<h4 class="font-bold text-on-background text-base group-hover:text-primary transition-colors">Emergency Faculty Meeting</h4>
+<p class="text-xs text-on-surface-variant font-medium">Principal Office • 10:30 AM</p>
+</div>
+</div>
+<span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-black uppercase tracking-tighter rounded-full">High Priority</span>
+</div>
+<div class="mt-4">
+<p class="text-sm text-on-surface-variant leading-relaxed line-clamp-2">All department heads are requested to attend a brief briefing regarding the upcoming academic audit. Please bring your semester projections.</p>
+</div>
+<div class="mt-4 flex items-center gap-4 pt-4 border-t border-slate-50">
+<button class="text-primary text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">reply</span> Reply
+                                    </button>
+<button class="text-on-surface-variant/60 text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">archive</span> Archive
+                                    </button>
+</div>
+</div>
+<!-- Regular Notification Card -->
+<div class="bg-surface-container-lowest p-5 rounded-lg shadow-sm group hover:bg-slate-50 transition-all duration-200 cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div>
+<h4 class="font-bold text-on-background text-base">Monthly Payroll Disbursed</h4>
+<p class="text-xs text-on-surface-variant font-medium">Finance Dept • 09:15 AM</p>
+</div>
+</div>
+<span class="px-3 py-1 bg-slate-100 text-on-surface-variant text-[10px] font-black uppercase tracking-tighter rounded-full">Information</span>
+</div>
+<div class="mt-4">
+<p class="text-sm text-on-surface-variant leading-relaxed">The monthly payroll cycle for June has been completed. Salary slips are now available for download in the finance module.</p>
+</div>
+</div>
+<!-- Regular Notification Card -->
+<div class="bg-surface-container-lowest p-5 rounded-lg shadow-sm group hover:bg-slate-50 transition-all duration-200 cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+<img alt="Sender" class="w-full h-full object-cover" data-alt="Male teacher profile, confident professor smiling in educational setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiddLvwc9jByhRWHX_hj9FpyCQyPlJ6R-v5o6R3DOI8KxnljTmWCRNYlfmX8zYv3dMv4ev67sQesg3cDyRAUYtMIYjKmDSWN0UG9rtBXVyYlzgh62F8QdsJ_cHRfV1MpnYsS4cLyJeHQYkpYAif2RWE48rePIUteryCSUAFqFSdvPdGCtLyYgVyZYjnwLf8J6Cn4zi9MoKxRUyGpz2rgx5DYJrvYz6hs6LJC8N-Ql0DUfkqFcmpaj06lr-_XCs2VinBxLm2M0Ve6U"/>
+</div>
+<div>
+<h4 class="font-bold text-on-background text-base">New Grade Submission: Grade 10-A</h4>
+<p class="text-xs text-on-surface-variant font-medium">Mr. Robert Chen • Yesterday</p>
+</div>
+</div>
+<span class="px-3 py-1 bg-slate-100 text-on-surface-variant text-[10px] font-black uppercase tracking-tighter rounded-full">Update</span>
+</div>
+<div class="mt-4">
+<p class="text-sm text-on-surface-variant leading-relaxed">Mid-term physics grades for Grade 10-A have been submitted for your approval. Please review the bell curve distribution.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Compose Area (Right Col) -->
+<div class="col-span-12 lg:col-span-5">
+<div class="sticky top-24">
+<div class="bg-surface-container-lowest rounded-xl shadow-lg border border-slate-100 p-8 space-y-6">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-2 h-6 bg-primary rounded-full"></div>
+<h3 class="text-xl font-bold text-on-background">Broadcast Message</h3>
+</div>
+<form class="space-y-6">
+<div class="space-y-2">
+<label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant px-1">Recipient Group</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 text-sm font-medium focus:ring-2 focus:ring-primary appearance-none">
+<option>All Faculty &amp; Staff</option>
+<option>All Students</option>
+<option>Department Heads Only</option>
+<option>Administrative Team</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant px-1">Message Subject</label>
+<input class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 text-sm font-medium focus:ring-2 focus:ring-primary" placeholder="Enter concise title..." type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant px-1">Urgency Level</label>
+<div class="flex gap-2">
+<label class="flex-1">
+<input checked="" class="sr-only peer" name="priority" type="radio"/>
+<div class="text-center py-2 border border-slate-100 rounded-lg text-xs font-bold cursor-pointer peer-checked:bg-slate-100 peer-checked:text-on-background">Normal</div>
+</label>
+<label class="flex-1">
+<input class="sr-only peer" name="priority" type="radio"/>
+<div class="text-center py-2 border border-slate-100 rounded-lg text-xs font-bold cursor-pointer peer-checked:bg-error-container peer-checked:text-on-error-container">Critical</div>
+</label>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant px-1">Message Body</label>
+<textarea class="w-full bg-surface-container-low border-none rounded-lg py-3 px-4 text-sm font-medium focus:ring-2 focus:ring-primary resize-none" placeholder="Compose your message here..." rows="6"></textarea>
+</div>
+<div class="flex items-center justify-between pt-2">
+<button class="flex items-center gap-2 text-on-surface-variant font-bold text-sm px-2" type="button">
+<span class="material-symbols-outlined text-lg">attach_file</span>
+                                            Attach
+                                        </button>
+<button class="bg-gradient-to-br from-primary to-primary-container text-white font-bold py-3 px-8 rounded-lg shadow-md active:scale-95 transition-transform" type="submit">
+                                            Send Message
+                                        </button>
+</div>
+</form>
+</div>
+<!-- Summary Card Below Compose -->
+<div class="mt-6 p-6 bg-primary/5 rounded-xl border border-primary/10">
+<h4 class="text-xs font-black text-primary uppercase tracking-widest mb-4">Delivery Status</h4>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<div class="text-2xl font-black text-primary tracking-tight">842</div>
+<div class="text-[10px] font-bold text-on-surface-variant uppercase">Emails Sent Today</div>
+</div>
+<div>
+<div class="text-2xl font-black text-primary tracking-tight">98.2%</div>
+<div class="text-[10px] font-bold text-on-surface-variant uppercase">Open Rate</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
