@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mầm Non Plus - Admin</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'inverse-primary': '#a5c8ff',
+              'surface-container-highest': '#e5e2e1',
+              'primary-fixed': '#d4e3ff',
+              'on-primary-fixed-variant': '#004785',
+              'tertiary': '#7d5400',
+              'primary-container': '#0075d5',
+              'on-tertiary-fixed': '#281800',
+              'secondary-container': '#85fa51',
+              'secondary': '#266d00',
+              'surface-bright': '#fcf9f8',
+              'inverse-surface': '#313030',
+              'on-error': '#ffffff',
+              'surface': '#fcf9f8',
+              'on-primary-container': '#fefcff',
+              'surface-variant': '#e5e2e1',
+              'on-tertiary-container': '#fffbff',
+              'on-secondary-fixed': '#062100',
+              'on-tertiary': '#ffffff',
+              'tertiary-fixed': '#ffddb0',
+              'surface-container-lowest': '#ffffff',
+              'surface-container': '#f0edec',
+              'on-error-container': '#93000a',
+              'secondary-fixed-dim': '#6de039',
+              'outline-variant': '#c0c7d6',
+              'on-primary': '#ffffff',
+              'on-tertiary-fixed-variant': '#614000',
+              'tertiary-fixed-dim': '#ffba45',
+              'secondary-fixed': '#88fd54',
+              'on-secondary-fixed-variant': '#1a5200',
+              'on-secondary-container': '#287100',
+              'error-container': '#ffdad6',
+              'tertiary-container': '#9d6a00',
+              'on-primary-fixed': '#001c3a',
+              'on-secondary': '#ffffff',
+              'on-surface': '#1c1b1b',
+              'primary-fixed-dim': '#a5c8ff',
+              'surface-tint': '#005fae',
+              'error': '#ba1a1a',
+              'background': '#fcf9f8',
+              'inverse-on-surface': '#f3f0ef',
+              'surface-dim': '#dcd9d9',
+              'on-background': '#1c1b1b',
+              'primary': '#005daa',
+              'surface-container-high': '#ebe7e7',
+              'surface-container-low': '#f6f3f2',
+              'outline': '#707785',
+              'on-surface-variant': '#404753'
+            },
+            fontFamily: {
+              'body': ['Inter'],
+              'headline': ['Inter'],
+              'label': ['Inter'],
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+      }
+    </style>
+  </head>
+  <body class="bg-surface">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
