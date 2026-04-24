@@ -1,8 +1,17 @@
 import { useAuth } from '../hooks/useAuth';
+import { useState } from 'react';
 
 const ROLE_MENUS = {
   ADMIN: [
-    { id: 'accounts', label: 'Quản lý tài khoản', icon: 'person' },
+    {
+      id: 'accounts',
+      label: 'Quản lý tài khoản',
+      icon: 'person',
+      children: [
+        { id: 'user-accounts', label: 'Tài khoản người dùng' },
+        { id: 'my-account', label: 'Tài khoản cá nhân' }
+      ]
+    }
   ],
   PRINCIPAL: [
     { id: 'teachers', label: 'Quản lý giáo viên', icon: 'school' },
@@ -10,32 +19,41 @@ const ROLE_MENUS = {
     { id: 'classes', label: 'Quản lý lớp học', icon: 'class' },
     { id: 'reports', label: 'Báo cáo và thống kê', icon: 'bar_chart' },
     { id: 'notifications', label: 'Quản lý thông báo', icon: 'notifications' },
-    { id: 'accounts', label: 'Quản lý tài khoản', icon: 'person' },
+    {
+      id: 'accounts',
+      label: 'Quản lý tài khoản',
+      icon: 'person',
+      children: [
+        { id: 'user-accounts', label: 'Tài khoản người dùng' },
+        { id: 'my-account', label: 'Tài khoản cá nhân' }
+      ]
+    }
   ],
   TEACHER: [
     { id: 'students', label: 'Quản lý học sinh', icon: 'people' },
     { id: 'classes', label: 'Quản lý lớp học', icon: 'class' },
-    { id: 'health', label: 'Theo dõi sức khỏe học sinh', icon: 'favorite' },
+    { id: 'health', label: 'Sức khỏe học sinh', icon: 'favorite' },
     { id: 'notifications', label: 'Quản lý thông báo', icon: 'notifications' },
-    { id: 'accounts', label: 'Quản lý tài khoản', icon: 'person' },
+    { id: 'accounts', label: 'Tài khoản', icon: 'person' },
   ],
   FINANCE: [
     { id: 'revenue', label: 'Quản lý thu chi', icon: 'receipt' },
     { id: 'reports', label: 'Báo cáo và thống kê', icon: 'bar_chart' },
-    { id: 'accounts', label: 'Quản lý tài khoản', icon: 'person' },
+    { id: 'accounts', label: 'Tài khoản', icon: 'person' },
     { id: 'notifications', label: 'Quản lý thông báo', icon: 'notifications' },
   ],
   PARENT: [
     { id: 'children', label: 'Xem thông tin của con', icon: 'child_care' },
     { id: 'camera', label: 'Giám sát camera', icon: 'videocam' },
     { id: 'notifications', label: 'Quản lý thông báo', icon: 'notifications' },
-    { id: 'accounts', label: 'Quản lý tài khoản', icon: 'person' },
+    { id: 'accounts', label: 'Tài khoản', icon: 'person' },
   ],
 };
 
 export function Sidebar({ activeItem, onItemClick }) {
   const { role, logout, user } = useAuth();
   const menuItems = ROLE_MENUS[role] || [];
+  const [openMenu, setOpenMenu] = useState(null);
 
   return (
     <aside className="h-screen sticky left-0 w-64 border-r border-slate-200 bg-slate-50 flex flex-col py-4 space-y-1 font-body text-sm font-medium">
@@ -54,18 +72,40 @@ export function Sidebar({ activeItem, onItemClick }) {
 
       <nav className="flex-1 space-y-1 px-2 overflow-y-auto">
         {menuItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => onItemClick?.(item)}
-            className={`w-full flex items-center px-4 py-2.5 rounded-lg mx-2 transition-all duration-200 ease-in-out ${
-              activeItem?.id === item.id
-                ? 'bg-white text-primary shadow-sm'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-            }`}
-          >
-            <span className="material-symbols-outlined mr-3 text-xl">{item.icon}</span>
-            <span className="text-sm">{item.label}</span>
-          </button>
+          <div key={item.id}>
+
+            {/* MENU CHA */}
+            <button
+              onClick={() => {
+                if (item.children) {
+                  setOpenMenu(openMenu === item.id ? null : item.id);
+                } else {
+                  onItemClick?.(item);
+                }
+              }}
+              className="w-full flex items-center px-4 py-2.5 rounded-lg mx-2"
+            >
+              <span className="material-symbols-outlined mr-3 text-xl">
+                {item.icon}
+              </span>
+              <span>{item.label}</span>
+            </button>
+
+            {/* MENU CON */}
+            {item.children && openMenu === item.id && (
+              <div className="ml-10 space-y-1">
+                {item.children.map((child) => (
+                  <button
+                    key={child.id}
+                    onClick={() => onItemClick?.(child)}
+                    className="block w-full text-left px-4 py-2 text-sm text-slate-600 hover:text-slate-900"
+                  >
+                    {child.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         ))}
       </nav>
 

@@ -113,10 +113,10 @@ export default function Login() {
             </p>
             <div className="space-y-2 text-xs text-on-surface-variant">
               <p><span className="font-semibold">Admin:</span> admin / 123456</p>
-              <p><span className="font-semibold">Principal:</span> bgh1 / 123456</p>
-              <p><span className="font-semibold">Teacher:</span> giaovien1 / 123456</p>
-              <p><span className="font-semibold">Finance:</span> taichinh1 / 123456</p>
-              <p><span className="font-semibold">Parent:</span> phuhuynh1 / 123456</p>
+              <p><span className="font-semibold">Ban giám hiệu:</span> bgh1 / 123456</p>
+              <p><span className="font-semibold">Giáo viên:</span> giaovien1 / 123456</p>
+              <p><span className="font-semibold">Tài chính:</span> taichinh1 / 123456</p>
+              <p><span className="font-semibold">Phụ huynh:</span> phuhuynh1 / 123456</p>
             </div>
           </div>
         </div>

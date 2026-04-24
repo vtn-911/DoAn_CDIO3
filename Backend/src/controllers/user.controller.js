@@ -5,6 +5,4 @@ const getUsers = async (req, res) => {
   res.json(data);
 };
 
-module.exports = {
-  getUsers
-};
+module.exports = { getUsers };

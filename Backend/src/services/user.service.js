@@ -4,6 +4,4 @@ const getAllUsers = async () => {
   return await prisma.nguoidung.findMany();
 };
 
-module.exports = {
-  getAllUsers
-};
+module.exports = { getAllUsers };
