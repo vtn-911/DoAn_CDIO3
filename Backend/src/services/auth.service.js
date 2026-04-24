@@ -1,8 +1,13 @@
 const prisma = require("../config/prisma");
 
-const login = async (tenDangNhap, matKhau) => {
-  const user = await prisma.nguoidung.findUnique({
-    where: { tenDangNhap }
+const login = async (identifier, matKhau) => {
+  const user = await prisma.nguoidung.findFirst({
+    where: {
+      OR: [
+        { tenDangNhap: identifier },
+        { email: identifier }
+      ]
+    }
   });
 
   if (!user || user.matKhau !== matKhau) {

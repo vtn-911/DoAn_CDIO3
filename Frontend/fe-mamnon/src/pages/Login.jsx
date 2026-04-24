@@ -44,7 +44,7 @@ export default function Login() {
 
             <div className="relative">
               <label className="block text-xs font-bold text-on-surface uppercase tracking-wide mb-2">
-                Tên đăng nhập
+                Tên đăng nhập / Email
               </label>
               <div className="relative flex items-center">
                 <span className="material-symbols-outlined absolute left-3 text-on-surface-variant text-xl">person</span>
@@ -52,7 +52,7 @@ export default function Login() {
                   type="text"
                   value={tenDangNhap}
                   onChange={(e) => setTenDangNhap(e.target.value)}
-                  placeholder="admin"
+                  placeholder="admin hoặc admin@example.com"
                   className="w-full pl-12 pr-4 py-3 rounded-lg border border-outline bg-surface text-on-surface placeholder-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   required
                   disabled={loading}

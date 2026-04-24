@@ -55,6 +55,7 @@ export function Sidebar({ activeItem, onItemClick }) {
   const menuItems = ROLE_MENUS[role] || [];
   const [openMenu, setOpenMenu] = useState(null);
 
+
   return (
     <aside className="h-screen sticky left-0 w-64 border-r border-slate-200 bg-slate-50 flex flex-col py-4 space-y-1 font-body text-sm font-medium">
       <div className="px-6 mb-8 flex flex-col items-start">
@@ -65,48 +66,69 @@ export function Sidebar({ activeItem, onItemClick }) {
         <p className="text-xs uppercase tracking-widest text-on-surface-variant font-bold opacity-60 mt-1">
           {role}
         </p>
-        {user?.tenDangNhap && (
-          <p className="text-xs text-on-surface-variant mt-2">{user.tenDangNhap}</p>
-        )}
+        <p className="text-xs text-on-surface-variant mt-2">
+          {user?.hoTen || user?.tenDangNhap}
+        </p>
       </div>
 
-      <nav className="flex-1 space-y-1 px-2 overflow-y-auto">
-        {menuItems.map((item) => (
-          <div key={item.id}>
+      <nav className="flex-1 space-y-1 px-4 overflow-y-auto">
+        {menuItems.map((item) => {
+          const isActiveParent = activeItem?.id === item.id || (item.children && item.children.some(c => c.id === activeItem?.id));
 
-            {/* MENU CHA */}
-            <button
-              onClick={() => {
-                if (item.children) {
-                  setOpenMenu(openMenu === item.id ? null : item.id);
-                } else {
-                  onItemClick?.(item);
-                }
-              }}
-              className="w-full flex items-center px-4 py-2.5 rounded-lg mx-2"
-            >
-              <span className="material-symbols-outlined mr-3 text-xl">
-                {item.icon}
-              </span>
-              <span>{item.label}</span>
-            </button>
-
-            {/* MENU CON */}
-            {item.children && openMenu === item.id && (
-              <div className="ml-10 space-y-1">
-                {item.children.map((child) => (
-                  <button
-                    key={child.id}
-                    onClick={() => onItemClick?.(child)}
-                    className="block w-full text-left px-4 py-2 text-sm text-slate-600 hover:text-slate-900"
+          return (
+            <div key={item.id} className="mb-1">
+              {/* MENU CHA */}
+              <button
+                onClick={() => {
+                  if (item.children) {
+                    setOpenMenu(openMenu === item.id ? null : item.id);
+                    onItemClick?.(item);
+                  } else {
+                    onItemClick?.(item);
+                  }
+                }}
+                className={`w-full flex items-center px-4 py-2.5 rounded-xl transition-all duration-200 ${isActiveParent
+                  ? 'bg-primary text-white shadow-md shadow-primary/20 font-bold'
+                  : 'text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-semibold'
+                  }`}
+              >
+                <span className="material-symbols-outlined mr-3 text-xl">
+                  {item.icon}
+                </span>
+                <span>{item.label}</span>
+                {item.children && (
+                  <span
+                    className="material-symbols-outlined ml-auto text-lg transition-transform duration-300"
+                    style={{ transform: openMenu === item.id ? 'rotate(180deg)' : 'none' }}
                   >
-                    {child.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
+                    expand_more
+                  </span>
+                )}
+              </button>
+
+              {/* MENU CON */}
+              {item.children && openMenu === item.id && (
+                <div className="ml-6 mt-1 pl-4 border-l-2 border-outline-variant/30 space-y-1 animate-in slide-in-from-top-2 fade-in duration-200">
+                  {item.children.map((child) => {
+                    const isActiveChild = activeItem?.id === child.id;
+                    return (
+                      <button
+                        key={child.id}
+                        onClick={() => onItemClick?.(child)}
+                        className={`block w-full text-left px-4 py-2 text-sm rounded-lg transition-all ${isActiveChild
+                          ? 'bg-primary/10 text-primary font-bold'
+                          : 'text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-medium'
+                          }`}
+                      >
+                        {child.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          )
+        })}
       </nav>
 
       <div className="px-4 py-4 border-t border-slate-200">
