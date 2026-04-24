@@ -63,6 +63,9 @@ model giaovien {
   lopHoc     lophoc[]
   hocSinh    hocsinh[]
 
+  diemDanh   diemdanh[]
+  bangDiem   bangdiem[]
+  danhGia    danhgia[]
 }
 
 model taichinh {
@@ -115,6 +118,9 @@ model hocsinh {
   phuHuynh    phuhuynh? @relation(fields: [phuHuynhId], references: [maPH])
 
   sucKhoe     suckhoe[]
+  diemDanh    diemdanh[]
+  bangDiem    bangdiem[]
+  danhGia     danhgia[]
 }
 
 model suckhoe {
@@ -146,4 +152,46 @@ model thongbao {
 
   nguoiGuiId  String
   nguoiGui    nguoidung @relation("NguoiGui_ThongBao", fields: [nguoiGuiId], references: [idND])
+}
+
+model diemdanh {
+  id          String   @id @default(cuid()) @db.VarChar(191)
+  ngay        DateTime
+  trangThai   String   @db.VarChar(191) // CoMat, VangCoPhep, VangKhongPhep
+  ghiChu      String?  @db.VarChar(191)
+
+  hocSinhId   String   @db.VarChar(191)
+  hocSinh     hocsinh  @relation(fields: [hocSinhId], references: [maHS], onDelete: Cascade)
+
+  giaoVienId  String?  @db.VarChar(191)
+  giaoVien    giaovien? @relation(fields: [giaoVienId], references: [maGV])
+}
+
+model bangdiem {
+  id          String   @id @default(cuid()) @db.VarChar(191)
+  monHoc      String   @db.VarChar(191)
+  diemSo      Float?
+  nhanXet     String?  @db.VarChar(191)
+  kyHoc       String   @db.VarChar(191)
+  namHoc      String   @db.VarChar(191)
+  
+  hocSinhId   String   @db.VarChar(191)
+  hocSinh     hocsinh  @relation(fields: [hocSinhId], references: [maHS], onDelete: Cascade)
+
+  giaoVienId  String?  @db.VarChar(191)
+  giaoVien    giaovien? @relation(fields: [giaoVienId], references: [maGV])
+}
+
+model danhgia {
+  id           String   @id @default(cuid()) @db.VarChar(191)
+  kyHoc        String   @db.VarChar(191)
+  namHoc       String   @db.VarChar(191)
+  nhanXetChung String   @db.Text
+  xepLoai      String?  @db.VarChar(191)
+  
+  hocSinhId    String   @db.VarChar(191)
+  hocSinh      hocsinh  @relation(fields: [hocSinhId], references: [maHS], onDelete: Cascade)
+
+  giaoVienId   String?  @db.VarChar(191)
+  giaoVien     giaovien? @relation(fields: [giaoVienId], references: [maGV])
 }

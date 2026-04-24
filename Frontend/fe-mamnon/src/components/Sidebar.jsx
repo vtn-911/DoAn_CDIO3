@@ -15,7 +15,16 @@ const ROLE_MENUS = {
   ],
   PRINCIPAL: [
     { id: 'teachers', label: 'Quản lý giáo viên', icon: 'school' },
-    { id: 'students', label: 'Quản lý học sinh', icon: 'people' },
+    {
+      id: 'students',
+      label: 'Quản lý học sinh',
+      icon: 'people',
+      children: [
+        { id: 'student-info', label: 'Thông tin học sinh' },
+        { id: 'student-academic', label: 'Hồ sơ học tập' },
+        { id: 'student-attendance', label: 'Điểm danh' }
+      ]
+    },
     { id: 'classes', label: 'Quản lý lớp học', icon: 'class' },
     { id: 'reports', label: 'Báo cáo và thống kê', icon: 'bar_chart' },
     { id: 'notifications', label: 'Quản lý thông báo', icon: 'notifications' },
@@ -30,7 +39,16 @@ const ROLE_MENUS = {
     }
   ],
   TEACHER: [
-    { id: 'students', label: 'Quản lý học sinh', icon: 'people' },
+    {
+      id: 'students',
+      label: 'Quản lý học sinh',
+      icon: 'people',
+      children: [
+        { id: 'student-info', label: 'Thông tin học sinh' },
+        { id: 'student-academic', label: 'Hồ sơ học tập' },
+        { id: 'student-attendance', label: 'Điểm danh' }
+      ]
+    },
     { id: 'classes', label: 'Quản lý lớp học', icon: 'class' },
     { id: 'health', label: 'Sức khỏe học sinh', icon: 'favorite' },
     { id: 'notifications', label: 'Quản lý thông báo', icon: 'notifications' },
@@ -39,8 +57,8 @@ const ROLE_MENUS = {
   FINANCE: [
     { id: 'revenue', label: 'Quản lý thu chi', icon: 'receipt' },
     { id: 'reports', label: 'Báo cáo và thống kê', icon: 'bar_chart' },
-    { id: 'accounts', label: 'Tài khoản', icon: 'person' },
     { id: 'notifications', label: 'Quản lý thông báo', icon: 'notifications' },
+    { id: 'accounts', label: 'Tài khoản', icon: 'person' },
   ],
   PARENT: [
     { id: 'children', label: 'Xem thông tin của con', icon: 'child_care' },
