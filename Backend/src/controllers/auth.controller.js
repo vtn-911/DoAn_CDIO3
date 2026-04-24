@@ -1,7 +1,19 @@
 const authService = require("../services/auth.service");
 
+const roleMap = {
+  ADMIN: 'ADMIN',
+  BGH: 'PRINCIPAL',
+  GIAOVIEN: 'TEACHER',
+  TAICHINH: 'FINANCE',
+  PHUHUYNH: 'PARENT'
+};
+
 const login = async (req, res) => {
   const { tenDangNhap, matKhau } = req.body;
+
+  if (!tenDangNhap || !matKhau) {
+    return res.status(400).json({ message: "Tên đăng nhập và mật khẩu là bắt buộc" });
+  }
 
   const user = await authService.login(tenDangNhap, matKhau);
 
@@ -9,7 +21,13 @@ const login = async (req, res) => {
     return res.status(401).json({ message: "Sai tài khoản hoặc mật khẩu" });
   }
 
-  res.json(user);
+  res.json({
+    idND: user.idND,
+    tenDangNhap: user.tenDangNhap,
+    email: user.email,
+    soDienThoai: user.soDienThoai,
+    vaiTro: roleMap[user.vaiTro] || user.vaiTro,
+  });
 };
 
 module.exports = { login };

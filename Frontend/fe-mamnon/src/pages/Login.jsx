@@ -2,31 +2,23 @@ import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 
 export default function Login() {
-  const { login } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('ADMIN');
+  const { login, loading, error } = useAuth();
+  const [tenDangNhap, setTenDangNhap] = useState('');
+  const [matKhau, setMatKhau] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [loginError, setLoginError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email || !password) return;
-    
-    setIsLoading(true);
-    setTimeout(() => {
-      login({ email, name: email.split('@')[0] }, role);
-      setIsLoading(false);
-    }, 500);
-  };
+    if (!tenDangNhap || !matKhau) return;
 
-  const roles = [
-    { value: 'ADMIN', label: 'Admin', icon: 'admin_panel_settings' },
-    { value: 'PRINCIPAL', label: 'Principal', icon: 'domain' },
-    { value: 'TEACHER', label: 'Teacher', icon: 'school' },
-    { value: 'FINANCE', label: 'Finance', icon: 'receipt_long' },
-    { value: 'PARENT', label: 'Parent', icon: 'family_restroom' },
-  ];
+    setLoginError('');
+    try {
+      await login(tenDangNhap, matKhau);
+    } catch (err) {
+      setLoginError(err.message);
+    }
+  };
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-primary via-primary-container to-surface">
@@ -38,47 +30,56 @@ export default function Login() {
                 <span className="material-symbols-outlined text-white text-5xl">school</span>
               </div>
             </div>
-            
+
             <h1 className="text-3xl font-bold text-on-surface mb-2">Mầm Non Plus</h1>
             <p className="text-sm text-on-surface-variant">Admin Management System</p>
           </div>
 
           <form onSubmit={handleSubmit} className="px-8 pb-8 space-y-5">
+            {loginError && (
+              <div className="p-3 rounded-lg bg-error-container text-error text-sm">
+                ❌ {loginError}
+              </div>
+            )}
+
             <div className="relative">
               <label className="block text-xs font-bold text-on-surface uppercase tracking-wide mb-2">
-                Email Address
+                Tên đăng nhập
               </label>
               <div className="relative flex items-center">
-                <span className="material-symbols-outlined absolute left-3 text-on-surface-variant text-xl">mail</span>
+                <span className="material-symbols-outlined absolute left-3 text-on-surface-variant text-xl">person</span>
                 <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@mamnon.edu.vn"
+                  type="text"
+                  value={tenDangNhap}
+                  onChange={(e) => setTenDangNhap(e.target.value)}
+                  placeholder="admin"
                   className="w-full pl-12 pr-4 py-3 rounded-lg border border-outline bg-surface text-on-surface placeholder-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   required
+                  disabled={loading}
                 />
               </div>
             </div>
 
             <div className="relative">
               <label className="block text-xs font-bold text-on-surface uppercase tracking-wide mb-2">
-                Password
+                Mật khẩu
               </label>
               <div className="relative flex items-center">
                 <span className="material-symbols-outlined absolute left-3 text-on-surface-variant text-xl">lock</span>
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
+                  value={matKhau}
+                  onChange={(e) => setMatKhau(e.target.value)}
+                  placeholder="Nhập mật khẩu"
                   className="w-full pl-12 pr-12 py-3 rounded-lg border border-outline bg-surface text-on-surface placeholder-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   required
+                  disabled={loading}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 text-on-surface-variant hover:text-on-surface transition-colors"
+                  disabled={loading}
                 >
                   <span className="material-symbols-outlined text-xl">
                     {showPassword ? 'visibility_off' : 'visibility'}
@@ -87,120 +88,41 @@ export default function Login() {
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-bold text-on-surface uppercase tracking-wide mb-2">
-                Select Role
-              </label>
-              <div className="grid grid-cols-5 gap-2">
-                {roles.map((r) => (
-                  <button
-                    key={r.value}
-                    type="button"
-                    onClick={() => setRole(r.value)}
-                    className={`flex flex-col items-center justify-center p-3 rounded-lg transition-all duration-200 ${
-                      role === r.value
-                        ? 'bg-primary text-on-primary shadow-md'
-                        : 'bg-surface-container text-on-surface border border-outline hover:border-primary'
-                    }`}
-                    title={r.label}
-                  >
-                    <span className="material-symbols-outlined text-2xl mb-1">{r.icon}</span>
-                    <span className="text-xs font-bold">{r.label}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
             <button
               type="submit"
-              disabled={isLoading || !email || !password}
+              disabled={loading || !tenDangNhap || !matKhau}
               className="w-full px-6 py-3 rounded-lg bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold uppercase tracking-wide hover:shadow-lg active:scale-95 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              {isLoading ? (
+              {loading ? (
                 <>
                   <span className="material-symbols-outlined animate-spin text-xl">hourglass_empty</span>
-                  Signing in...
+                  Đang đăng nhập...
                 </>
               ) : (
                 <>
                   <span className="material-symbols-outlined text-xl">login</span>
-                  Sign In
+                  Đăng nhập
                 </>
               )}
             </button>
           </form>
 
-          <div className="px-8 pb-8 pt-6 border-t border-outline-variant">
+          <div className="px-8 pb-8 pt-6 border-t border-outline-variant bg-surface-container-low">
             <p className="text-xs font-bold text-on-surface uppercase tracking-wide mb-3">
-              📋 Demo Credentials
+              📋 Tài khoản demo
             </p>
-            <div className="grid grid-cols-1 gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('admin@mamnon.edu.vn');
-                  setPassword('admin123');
-                  setRole('ADMIN');
-                }}
-                className="text-left px-4 py-2 rounded-lg bg-surface-container hover:bg-primary hover:text-on-primary text-sm transition-all"
-              >
-                <span className="font-semibold">👤 Admin</span>
-                <span className="text-xs opacity-75 block">admin@mamnon.edu.vn</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('principal@mamnon.edu.vn');
-                  setPassword('principal123');
-                  setRole('PRINCIPAL');
-                }}
-                className="text-left px-4 py-2 rounded-lg bg-surface-container hover:bg-primary hover:text-on-primary text-sm transition-all"
-              >
-                <span className="font-semibold">🏫 Principal</span>
-                <span className="text-xs opacity-75 block">principal@mamnon.edu.vn</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('teacher@mamnon.edu.vn');
-                  setPassword('teacher123');
-                  setRole('TEACHER');
-                }}
-                className="text-left px-4 py-2 rounded-lg bg-surface-container hover:bg-primary hover:text-on-primary text-sm transition-all"
-              >
-                <span className="font-semibold">👨‍🏫 Teacher</span>
-                <span className="text-xs opacity-75 block">teacher@mamnon.edu.vn</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('finance@mamnon.edu.vn');
-                  setPassword('finance123');
-                  setRole('FINANCE');
-                }}
-                className="text-left px-4 py-2 rounded-lg bg-surface-container hover:bg-primary hover:text-on-primary text-sm transition-all"
-              >
-                <span className="font-semibold">💰 Finance</span>
-                <span className="text-xs opacity-75 block">finance@mamnon.edu.vn</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('parent@mamnon.edu.vn');
-                  setPassword('parent123');
-                  setRole('PARENT');
-                }}
-                className="text-left px-4 py-2 rounded-lg bg-surface-container hover:bg-primary hover:text-on-primary text-sm transition-all"
-              >
-                <span className="font-semibold">👨‍👩‍👧 Parent</span>
-                <span className="text-xs opacity-75 block">parent@mamnon.edu.vn</span>
-              </button>
+            <div className="space-y-2 text-xs text-on-surface-variant">
+              <p><span className="font-semibold">Admin:</span> admin / 123456</p>
+              <p><span className="font-semibold">Principal:</span> bgh1 / 123456</p>
+              <p><span className="font-semibold">Teacher:</span> giaovien1 / 123456</p>
+              <p><span className="font-semibold">Finance:</span> taichinh1 / 123456</p>
+              <p><span className="font-semibold">Parent:</span> phuhuynh1 / 123456</p>
             </div>
           </div>
         </div>
 
         <div className="mt-6 text-center text-xs text-surface opacity-90">
-          <p>Scholar Metric - Kindergarten Management System</p>
+          <p>Mầm Non Plus - Kindergarten Management System</p>
         </div>
       </div>
     </div>

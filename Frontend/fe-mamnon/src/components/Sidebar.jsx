@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 
 const ROLE_MENUS = {
@@ -35,7 +34,7 @@ const ROLE_MENUS = {
 };
 
 export function Sidebar({ activeItem, onItemClick }) {
-  const { role, logout } = useAuth();
+  const { role, logout, user } = useAuth();
   const menuItems = ROLE_MENUS[role] || [];
 
   return (
@@ -48,6 +47,9 @@ export function Sidebar({ activeItem, onItemClick }) {
         <p className="text-xs uppercase tracking-widest text-on-surface-variant font-bold opacity-60 mt-1">
           {role}
         </p>
+        {user?.tenDangNhap && (
+          <p className="text-xs text-on-surface-variant mt-2">{user.tenDangNhap}</p>
+        )}
       </div>
 
       <nav className="flex-1 space-y-1 px-2 overflow-y-auto">
