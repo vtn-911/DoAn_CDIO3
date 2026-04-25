@@ -66,13 +66,7 @@ const ROLE_MENUS = {
     { 
       id: 'children-info', 
       label: 'Xem thông tin của con', 
-      icon: 'child_care',
-      children: [
-        { id: 'child-profile', label: 'Thông tin cá nhân' },
-        { id: 'child-academic', label: 'Học tập' },
-        { id: 'child-health', label: 'Hồ sơ sức khỏe' },
-        { id: 'child-schedule', label: 'Lịch học' },
-      ]
+      icon: 'child_care'
     },
     { id: 'camera', label: 'Giám sát camera', icon: 'videocam' },
     { id: 'notifications', label: 'Quản lý thông báo', icon: 'notifications' },
