@@ -107,18 +107,7 @@ export default function Login() {
             </button>
           </form>
 
-          <div className="px-8 pb-8 pt-6 border-t border-outline-variant bg-surface-container-low">
-            <p className="text-xs font-bold text-on-surface uppercase tracking-wide mb-3">
-              📋 Tài khoản demo
-            </p>
-            <div className="space-y-2 text-xs text-on-surface-variant">
-              <p><span className="font-semibold">Admin:</span> admin / 123456</p>
-              <p><span className="font-semibold">Ban giám hiệu:</span> bgh1 / 123456</p>
-              <p><span className="font-semibold">Giáo viên:</span> giaovien1 / 123456</p>
-              <p><span className="font-semibold">Tài chính:</span> taichinh1 / 123456</p>
-              <p><span className="font-semibold">Phụ huynh:</span> phuhuynh1 / 123456</p>
-            </div>
-          </div>
+
         </div>
 
         <div className="mt-6 text-center text-xs text-surface opacity-90">
