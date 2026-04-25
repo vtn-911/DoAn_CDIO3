@@ -58,6 +58,11 @@ model giaovien {
   hoTen      String   @db.VarChar(191)
   nguoiDung  String   @unique @db.VarChar(191)
 
+  ngaySinh    DateTime?
+  gioiTinh    String?
+  diaChi      String?
+  chuyenMon   String?
+
   nguoidung_rel nguoidung @relation(fields: [nguoiDung], references: [idND])
 
   lopHoc     lophoc[]
@@ -66,6 +71,21 @@ model giaovien {
   diemDanh   diemdanh[]
   bangDiem   bangdiem[]
   danhGia    danhgia[]
+  lichGiangDay lichgiangday[]
+}
+
+model lichgiangday {
+  id          String   @id @default(cuid()) @db.VarChar(191)
+  thu         Int      // Thứ 2 -> 7 (hoặc 8 cho Chủ nhật)
+  caHoc       String   @db.VarChar(191) // Sáng, Chiều, hoặc tiết 1, 2...
+  monHoc      String?  @db.VarChar(191)
+  ngayHieuLuc DateTime?
+
+  maGV        String   @db.VarChar(191)
+  giaoVien    giaovien @relation(fields: [maGV], references: [maGV])
+
+  maLop       String   @db.VarChar(191)
+  lop         lophoc   @relation(fields: [maLop], references: [maLop])
 }
 
 model taichinh {
@@ -100,6 +120,7 @@ model lophoc {
   bgh        bangiamhieu? @relation(fields: [bghId], references: [maBGH])
 
   hocSinh    hocsinh[]
+  lichGiangDay lichgiangday[]
 }
 
 model hocsinh {

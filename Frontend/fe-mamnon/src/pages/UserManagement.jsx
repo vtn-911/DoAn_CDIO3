@@ -107,6 +107,7 @@ export default function UserManagement() {
         setUsers(users.filter(u => u.idND !== id));
       } catch (error) {
         console.error("Error deleting user:", error);
+        alert(error.response?.data?.error || "Xóa thất bại! Vui lòng thử lại.");
       }
     }
   };

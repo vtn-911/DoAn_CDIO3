@@ -33,8 +33,73 @@ const updateUser = async (id, data) => {
 };
 
 const deleteUser = async (id) => {
-  return await prisma.nguoidung.delete({
-    where: { idND: id }
+  const user = await prisma.nguoidung.findUnique({
+    where: { idND: id },
+    include: {
+      admin: true,
+      bangiamhieu: true,
+      giaovien: true,
+      taichinh: true,
+      phuhuynh: true,
+    }
+  });
+
+  if (!user) throw new Error("User not found");
+
+  return await prisma.$transaction(async (tx) => {
+    // 1. Cleanup specific role dependencies
+    if (user.giaovien) {
+      const maGV = user.giaovien.maGV;
+      await tx.lophoc.updateMany({
+        where: { giaoVienId: maGV },
+        data: { giaoVienId: null }
+      });
+      await tx.hocsinh.updateMany({
+        where: { giaoVienId: maGV },
+        data: { giaoVienId: null }
+      });
+      await tx.lichgiangday.deleteMany({ where: { maGV: maGV } });
+      await tx.diemdanh.deleteMany({ where: { giaoVienId: maGV } });
+      await tx.bangdiem.deleteMany({ where: { giaoVienId: maGV } });
+      await tx.danhgia.deleteMany({ where: { giaoVienId: maGV } });
+      await tx.giaovien.delete({ where: { maGV: maGV } });
+    }
+
+    if (user.phuhuynh) {
+      const maPH = user.phuhuynh.maPH;
+      await tx.hocsinh.updateMany({
+        where: { phuHuynhId: maPH },
+        data: { phuHuynhId: null }
+      });
+      await tx.phuhuynh.delete({ where: { maPH: maPH } });
+    }
+
+    if (user.bangiamhieu) {
+      const maBGH = user.bangiamhieu.maBGH;
+      await tx.lophoc.updateMany({
+        where: { bghId: maBGH },
+        data: { bghId: null }
+      });
+      await tx.bangiamhieu.delete({ where: { maBGH: maBGH } });
+    }
+
+    if (user.admin) {
+      await tx.admin.delete({ where: { maAdmin: user.admin.maAdmin } });
+    }
+
+    if (user.taichinh) {
+      const maTC = user.taichinh.maTC;
+      await tx.thuchi.deleteMany({ where: { taiChinhId: maTC } });
+      await tx.taichinh.delete({ where: { maTC: maTC } });
+    }
+
+    // 2. Cleanup shared dependencies
+    await tx.thongbao.deleteMany({ where: { nguoiGuiId: id } });
+
+    // 3. Delete the user itself
+    return await tx.nguoidung.delete({
+      where: { idND: id }
+    });
   });
 };
 

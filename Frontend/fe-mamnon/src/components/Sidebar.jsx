@@ -14,7 +14,8 @@ const ROLE_MENUS = {
     }
   ],
   PRINCIPAL: [
-    { id: 'teachers', label: 'Quản lý giáo viên', icon: 'school' },
+    { id: 'teacher-management', label: 'Quản lý giáo viên', icon: 'school' },
+    { id: 'general-schedule', label: 'Thời khóa biểu', icon: 'calendar_view_week' },
     {
       id: 'students',
       label: 'Quản lý học sinh',
@@ -50,6 +51,7 @@ const ROLE_MENUS = {
       ]
     },
     { id: 'classes', label: 'Quản lý lớp học', icon: 'class' },
+    { id: 'general-schedule', label: 'Lịch giảng dạy', icon: 'calendar_view_week' },
     { id: 'health', label: 'Sức khỏe học sinh', icon: 'favorite' },
     { id: 'notifications', label: 'Quản lý thông báo', icon: 'notifications' },
     { id: 'accounts', label: 'Tài khoản', icon: 'person' },
@@ -61,7 +63,17 @@ const ROLE_MENUS = {
     { id: 'accounts', label: 'Tài khoản', icon: 'person' },
   ],
   PARENT: [
-    { id: 'children', label: 'Xem thông tin của con', icon: 'child_care' },
+    { 
+      id: 'children-info', 
+      label: 'Xem thông tin của con', 
+      icon: 'child_care',
+      children: [
+        { id: 'child-profile', label: 'Thông tin cá nhân' },
+        { id: 'child-academic', label: 'Học tập' },
+        { id: 'child-health', label: 'Hồ sơ sức khỏe' },
+        { id: 'child-schedule', label: 'Lịch học' },
+      ]
+    },
     { id: 'camera', label: 'Giám sát camera', icon: 'videocam' },
     { id: 'notifications', label: 'Quản lý thông báo', icon: 'notifications' },
     { id: 'accounts', label: 'Tài khoản', icon: 'person' },

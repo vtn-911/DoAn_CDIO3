@@ -1,16 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const prisma = require('../config/prisma');
+const classController = require('../controllers/class.controller');
 
-router.get('/', async (req, res) => {
-  try {
-    const classes = await prisma.lophoc.findMany({
-      orderBy: { tenLop: 'asc' }
-    });
-    res.json(classes);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+router.get('/', classController.getAllClasses);
+router.post('/', classController.createClass);
+router.put('/:id', classController.updateClass);
+router.delete('/:id', classController.deleteClass);
+
+router.post('/assign-teacher', classController.assignHomeroomTeacher);
+router.get('/:id/students', classController.getClassStudents);
+router.post('/:id/students', classController.addStudentToClass);
 
 module.exports = router;
