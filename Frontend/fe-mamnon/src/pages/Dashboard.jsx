@@ -14,6 +14,11 @@ import ChildAcademic from './ChildAcademic';
 import ChildHealth from './ChildHealth';
 import ChildSchedule from './ChildSchedule';
 import StudentHealth from './StudentHealth';
+import CameraMonitoring from './CameraMonitoring';
+import ChildInformationView from './ChildInformationView';
+import ReportsStatistics from './ReportsStatistics';
+import NotificationManagement from './NotificationManagement';
+import RevenueManagement from './RevenueManagement';
 
 export default function Dashboard() {
   const [activeItem, setActiveItem] = useState(null);
@@ -34,6 +39,11 @@ export default function Dashboard() {
       case 'child-health': return <ChildHealth />;
       case 'child-schedule': return <ChildSchedule />;
       case 'health': return <StudentHealth />;
+      case 'camera': return <CameraMonitoring />;
+      case 'children-info': return <ChildInformationView />;
+      case 'reports': return <ReportsStatistics />;
+      case 'notifications': return <NotificationManagement />;
+      case 'revenue': return <RevenueManagement />;
       default:
         return (
           <div className="flex flex-col items-center justify-center h-full text-slate-400">
