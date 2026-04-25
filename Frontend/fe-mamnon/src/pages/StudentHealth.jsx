@@ -109,8 +109,8 @@ export default function StudentHealth() {
     }
   };
 
-  const filteredStudents = students.filter(s => 
-    s.hoTen.toLowerCase().includes(search.toLowerCase()) || 
+  const filteredStudents = students.filter(s =>
+    s.hoTen.toLowerCase().includes(search.toLowerCase()) ||
     s.maHS.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -128,10 +128,13 @@ export default function StudentHealth() {
         <div className="w-80 border-r border-slate-200 bg-white flex flex-col">
           <div className="p-4 border-b border-slate-100">
             <div className="relative">
-              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
-              <input 
-                type="text" 
-                placeholder="Tìm học sinh..." 
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <span className="material-symbols-outlined text-on-surface-variant text-[20px]">
+                  search
+                </span>
+              </div>              <input
+                type="text"
+                placeholder="Tìm học sinh..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full pl-9 pr-4 py-2 bg-slate-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all"
@@ -167,13 +170,13 @@ export default function StudentHealth() {
             <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-4">
-                   <div className={`w-16 h-16 rounded-2xl flex items-center justify-center font-black text-2xl text-white shadow-md ${selectedStudent.gioiTinh === 'Nữ' ? 'bg-pink-500' : 'bg-blue-500'}`}>
-                      {selectedStudent.hoTen.charAt(0)}
-                   </div>
-                   <div>
-                      <h3 className="text-xl font-black text-slate-900">{selectedStudent.hoTen}</h3>
-                      <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{selectedStudent.lop?.tenLop} • {selectedStudent.maHS}</p>
-                   </div>
+                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center font-black text-2xl text-white shadow-md ${selectedStudent.gioiTinh === 'Nữ' ? 'bg-pink-500' : 'bg-blue-500'}`}>
+                    {selectedStudent.hoTen.charAt(0)}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black text-slate-900">{selectedStudent.hoTen}</h3>
+                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{selectedStudent.lop?.tenLop} • {selectedStudent.maHS}</p>
+                  </div>
                 </div>
                 <button
                   onClick={() => openModal()}
@@ -186,33 +189,33 @@ export default function StudentHealth() {
 
               {/* Quick Stats */}
               <div className="grid grid-cols-3 gap-6">
-                 <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-5">
-                    <div className="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center">
-                       <span className="material-symbols-outlined text-2xl">height</span>
-                    </div>
-                    <div>
-                       <p className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">Chiều cao mới nhất</p>
-                       <p className="text-xl font-black text-slate-900">{healthRecords[0]?.chieuCao || '—'} <span className="text-xs font-bold text-slate-400">cm</span></p>
-                    </div>
-                 </div>
-                 <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-5">
-                    <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
-                       <span className="material-symbols-outlined text-2xl">weight</span>
-                    </div>
-                    <div>
-                       <p className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">Cân nặng mới nhất</p>
-                       <p className="text-xl font-black text-slate-900">{healthRecords[0]?.canNang || '—'} <span className="text-xs font-bold text-slate-400">kg</span></p>
-                    </div>
-                 </div>
-                 <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-5">
-                    <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-                       <span className="material-symbols-outlined text-2xl">monitoring</span>
-                    </div>
-                    <div>
-                       <p className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">Tình trạng</p>
-                       <p className="text-sm font-black text-emerald-700">{healthRecords[0]?.tinhTrang || 'Bình thường'}</p>
-                    </div>
-                 </div>
+                <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-5">
+                  <div className="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-2xl">height</span>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">Chiều cao mới nhất</p>
+                    <p className="text-xl font-black text-slate-900">{healthRecords[0]?.chieuCao || '—'} <span className="text-xs font-bold text-slate-400">cm</span></p>
+                  </div>
+                </div>
+                <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-5">
+                  <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-2xl">weight</span>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">Cân nặng mới nhất</p>
+                    <p className="text-xl font-black text-slate-900">{healthRecords[0]?.canNang || '—'} <span className="text-xs font-bold text-slate-400">kg</span></p>
+                  </div>
+                </div>
+                <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center gap-5">
+                  <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-2xl">monitoring</span>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">Tình trạng</p>
+                    <p className="text-sm font-black text-emerald-700">{healthRecords[0]?.tinhTrang || 'Bình thường'}</p>
+                  </div>
+                </div>
               </div>
 
               {/* History Table */}
@@ -268,7 +271,7 @@ export default function StudentHealth() {
           ) : (
             <div className="h-full flex flex-col items-center justify-center text-slate-400 space-y-4">
               <div className="w-24 h-24 rounded-full bg-slate-100 flex items-center justify-center">
-                 <span className="material-symbols-outlined text-5xl opacity-20">favorite</span>
+                <span className="material-symbols-outlined text-5xl opacity-20">favorite</span>
               </div>
               <p className="text-sm font-medium italic">Vui lòng chọn học sinh ở danh sách bên trái để theo dõi sức khỏe</p>
             </div>
@@ -329,18 +332,18 @@ export default function StudentHealth() {
                 />
               </div>
               <div className="flex justify-end gap-3 pt-4">
-                <button 
-                   type="button" 
-                   onClick={() => setIsModalOpen(false)} 
-                   className="px-6 py-3 rounded-2xl text-sm font-bold text-slate-500 hover:bg-slate-100 transition-colors"
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-6 py-3 rounded-2xl text-sm font-bold text-slate-500 hover:bg-slate-100 transition-colors"
                 >
-                   Hủy
+                  Hủy
                 </button>
-                <button 
-                   type="submit" 
-                   className="px-8 py-3 bg-indigo-600 text-white rounded-2xl text-sm font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 active:scale-95"
+                <button
+                  type="submit"
+                  className="px-8 py-3 bg-indigo-600 text-white rounded-2xl text-sm font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 active:scale-95"
                 >
-                   Lưu dữ liệu
+                  Lưu dữ liệu
                 </button>
               </div>
             </form>

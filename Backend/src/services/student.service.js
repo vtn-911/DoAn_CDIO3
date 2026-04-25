@@ -42,16 +42,34 @@ const getAllStudents = async (filters = {}, user = null) => {
 };
 
 const getStudentById = async (id) => {
-  return await prisma.hocsinh.findUnique({
+  const student = await prisma.hocsinh.findUnique({
     where: { maHS: id },
     include: {
-      lop: { select: { tenLop: true } },
-      phuHuynh: { select: { hoTen: true } },
+      lop: {
+        include: {
+          giaoVien: {
+            select: {
+              hoTen: true,
+              maGV: true,
+              nguoidung_rel: { select: { soDienThoai: true } }
+            }
+          }
+        }
+      },
+      giaoVien: {
+        select: {
+          hoTen: true,
+          maGV: true,
+          nguoidung_rel: { select: { soDienThoai: true } }
+        }
+      },
       diemDanh: { orderBy: { ngay: 'desc' } },
       bangDiem: { orderBy: [{ namHoc: 'desc' }, { kyHoc: 'desc' }] },
       danhGia: { orderBy: [{ namHoc: 'desc' }, { kyHoc: 'desc' }] }
     }
   });
+  console.log(`FETCHED STUDENT ${id} DETAILS:`, JSON.stringify(student, null, 2));
+  return student;
 };
 
 const createStudent = async (data) => {

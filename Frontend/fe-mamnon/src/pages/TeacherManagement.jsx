@@ -36,8 +36,11 @@ export default function TeacherManagement() {
 
   useEffect(() => {
     fetchTeachers();
-    if (isBGH) fetchClasses();
   }, [search]);
+
+  useEffect(() => {
+    if (isBGH) fetchClasses();
+  }, [role, user]);
 
   const fetchTeachers = async () => {
     try {
@@ -53,7 +56,7 @@ export default function TeacherManagement() {
 
   const fetchClasses = async () => {
     try {
-      const res = await api.get('/classes');
+      const res = await api.get('/classes', { params: { role, userId: user?.idND } });
       setClasses(res.data);
     } catch (error) {
       console.error('Error fetching classes:', error);

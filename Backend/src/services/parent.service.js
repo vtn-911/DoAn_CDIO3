@@ -16,6 +16,13 @@ const getChildrenByParentUserId = async (userId) => {
                 }
               }
             }
+          },
+          giaoVien: {
+            select: {
+              hoTen: true,
+              maGV: true,
+              nguoidung_rel: { select: { soDienThoai: true } }
+            }
           }
         }
       }
@@ -23,6 +30,7 @@ const getChildrenByParentUserId = async (userId) => {
   });
 
   if (!phuHuynh) return [];
+  console.log("Retrieved children with teachers:", JSON.stringify(phuHuynh.hocSinh, (key, value) => key === 'nguoidung_rel' ? undefined : value, 2));
   return phuHuynh.hocSinh;
 };
 

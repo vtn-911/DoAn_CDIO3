@@ -4,7 +4,7 @@ import api from '../services/api';
 
 export default function StudentManagement() {
   const { user, role } = useAuth();
-  const isBGH = role === 'PRINCIPAL';
+  const isBGH = role === 'PRINCIPAL' || role === 'BGH';
 
   const [students, setStudents] = useState([]);
   const [classes, setClasses] = useState([]);
@@ -76,7 +76,7 @@ export default function StudentManagement() {
 
   const fetchClassList = async () => {
     try {
-      const res = await api.get('/classes');
+      const res = await api.get('/classes', { params: { role, userId: user?.idND } });
       setClasses(res.data);
     } catch (error) {
       console.error('Error fetching classes:', error);
