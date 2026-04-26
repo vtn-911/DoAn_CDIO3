@@ -40,7 +40,7 @@ export default function Dashboard() {
       case 'child-schedule': return <ChildSchedule />;
       case 'health': return <StudentHealth />;
       case 'camera': return <CameraMonitoring />;
-      case 'children-info': return <ChildInformationView />;
+
       case 'reports': return <ReportsStatistics />;
       case 'notifications': return <NotificationManagement />;
       case 'revenue': return <RevenueManagement />;
