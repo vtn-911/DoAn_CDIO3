@@ -162,7 +162,7 @@ export default function RevenueManagement() {
                       <span className="text-sm font-semibold text-slate-900">{expense.amount} đ</span>
                     </td>
                     <td className="px-6 py-4 text-center text-sm text-slate-600">{expense.date}</td>
-                    <td className="px-6 py-4 text-sm text-slate-600">{expense.notes}</td>
+                    <td className="px-6 py-4 text-left text-slate-600">{expense.notes}</td>
                     <td className="px-6 py-4 text-center">
                       <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
                         expense.status === 'paid'
