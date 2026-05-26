@@ -17,6 +17,10 @@ export default function StudentAttendance() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    fetchClasses();
+  }, []);
+
+  useEffect(() => {
     fetchStudents();
   }, [classFilter]);
 
@@ -25,6 +29,15 @@ export default function StudentAttendance() {
       fetchAttendanceForDate();
     }
   }, [selectedDate, students]);
+
+  const fetchClasses = async () => {
+    try {
+      const res = await api.get('/classes', { params: { role, userId: user?.idND } });
+      setClasses(res.data);
+    } catch (error) {
+      console.error("Error fetching classes:", error);
+    }
+  };
 
   const fetchStudents = async () => {
     try {
@@ -36,17 +49,8 @@ export default function StudentAttendance() {
       if (classFilter) params.lopId = classFilter;
       const res = await api.get('/students', { params });
       setStudents(res.data);
-
-      // Extract classes
-      const uniqueClasses = new Map();
-      res.data.forEach(s => {
-        if (s.lopId && s.lop) {
-          uniqueClasses.set(s.lopId, s.lop.tenLop);
-        }
-      });
-      setClasses(Array.from(uniqueClasses, ([id, name]) => ({ id, name })));
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error fetching students:", error);
     } finally {
       setLoading(false);
     }
@@ -144,11 +148,11 @@ export default function StudentAttendance() {
         <select
           value={classFilter}
           onChange={(e) => setClassFilter(e.target.value)}
-          className="px-4 py-2.5 rounded-xl border border-outline-variant/30 bg-surface-container-lowest text-sm outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+          className="pl-4 pr-10 py-2.5 rounded-xl border border-outline-variant/30 bg-surface-container-lowest text-sm outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%20%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M7%2010l3%203%203-3%22%20stroke%3D%22%236b7280%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_0.5rem_center] bg-no-repeat"
         >
           <option value="">Tất cả lớp</option>
           {classes.map(c => (
-            <option key={c.id} value={c.id}>{c.name}</option>
+            <option key={c.maLop} value={c.maLop}>{c.tenLop}</option>
           ))}
         </select>
       </div>
@@ -194,7 +198,7 @@ export default function StudentAttendance() {
                     </div>
                     <div>
                       <p className="font-semibold text-on-surface text-sm">{student.hoTen}</p>
-                      <p className="text-xs text-on-surface-variant">{student.lop?.tenLop || '—'}</p>
+                      <p className="text-xs text-left text-on-surface-variant">{student.lop?.tenLop || '—'}</p>
                     </div>
                   </div>
 
@@ -204,11 +208,10 @@ export default function StudentAttendance() {
                         <button
                           key={key}
                           onClick={() => handleStatusChange(student.maHS, key)}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-bold border transition-all ${
-                            status === key
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold border transition-all ${status === key
                               ? config.color + ' shadow-sm scale-105'
                               : 'bg-surface-container-low text-on-surface-variant border-outline-variant/20 hover:bg-surface-container-high'
-                          }`}
+                            }`}
                         >
                           {config.label}
                         </button>

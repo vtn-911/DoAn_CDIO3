@@ -15,20 +15,148 @@ const getAllUsers = async (filters = {}) => {
     ];
   }
 
-  return await prisma.nguoidung.findMany({ where });
+  const users = await prisma.nguoidung.findMany({
+    where,
+    include: {
+      admin: { select: { hoTen: true } },
+      bangiamhieu: { select: { hoTen: true } },
+      giaovien: { select: { hoTen: true } },
+      taichinh: { select: { hoTen: true } },
+      phuhuynh: { select: { hoTen: true } },
+    }
+  });
+
+  return users.map(user => {
+    let hoTen = '';
+    switch (user.vaiTro) {
+      case 'ADMIN': hoTen = user.admin?.hoTen || ''; break;
+      case 'BGH': hoTen = user.bangiamhieu?.hoTen || ''; break;
+      case 'GIAOVIEN': hoTen = user.giaovien?.hoTen || ''; break;
+      case 'TAICHINH': hoTen = user.taichinh?.hoTen || ''; break;
+      case 'PHUHUYNH': hoTen = user.phuhuynh?.hoTen || ''; break;
+    }
+    const userWithHoTen = { ...user, hoTen };
+    delete userWithHoTen.admin;
+    delete userWithHoTen.bangiamhieu;
+    delete userWithHoTen.giaovien;
+    delete userWithHoTen.taichinh;
+    delete userWithHoTen.phuhuynh;
+    return userWithHoTen;
+  });
 };
 
 const createUser = async (data) => {
-  if (!data.idND) {
-    data.idND = Date.now().toString();
+  const { hoTen, ...userData } = data;
+  if (!userData.idND) {
+    userData.idND = Date.now().toString();
   }
-  return await prisma.nguoidung.create({ data });
+
+  return await prisma.$transaction(async (tx) => {
+    const newUser = await tx.nguoidung.create({ data: userData });
+    const hoTenVal = hoTen || userData.tenDangNhap;
+
+    switch (newUser.vaiTro) {
+      case 'ADMIN':
+        await tx.admin.create({
+          data: {
+            maAdmin: 'AD' + Date.now().toString(),
+            hoTen: hoTenVal,
+            nguoiDung: newUser.idND
+          }
+        });
+        break;
+      case 'BGH':
+        await tx.bangiamhieu.create({
+          data: {
+            maBGH: 'BGH' + Date.now().toString(),
+            hoTen: hoTenVal,
+            nguoiDung: newUser.idND
+          }
+        });
+        break;
+      case 'GIAOVIEN':
+        await tx.giaovien.create({
+          data: {
+            maGV: 'GV' + Date.now().toString(),
+            hoTen: hoTenVal,
+            nguoiDung: newUser.idND
+          }
+        });
+        break;
+      case 'TAICHINH':
+        await tx.taichinh.create({
+          data: {
+            maTC: 'TC' + Date.now().toString(),
+            hoTen: hoTenVal,
+            nguoiDung: newUser.idND
+          }
+        });
+        break;
+      case 'PHUHUYNH':
+        await tx.phuhuynh.create({
+          data: {
+            maPH: 'PH' + Date.now().toString(),
+            hoTen: hoTenVal,
+            nguoiDung: newUser.idND
+          }
+        });
+        break;
+    }
+
+    return newUser;
+  });
 };
 
 const updateUser = async (id, data) => {
-  return await prisma.nguoidung.update({
-    where: { idND: id },
-    data
+  const { hoTen, ...userData } = data;
+
+  return await prisma.$transaction(async (tx) => {
+    const updatedUser = await tx.nguoidung.update({
+      where: { idND: id },
+      data: userData
+    });
+
+    if (hoTen !== undefined) {
+      switch (updatedUser.vaiTro) {
+        case 'ADMIN':
+          await tx.admin.upsert({
+            where: { nguoiDung: id },
+            create: { maAdmin: 'AD' + Date.now().toString(), hoTen, nguoiDung: id },
+            update: { hoTen }
+          });
+          break;
+        case 'BGH':
+          await tx.bangiamhieu.upsert({
+            where: { nguoiDung: id },
+            create: { maBGH: 'BGH' + Date.now().toString(), hoTen, nguoiDung: id },
+            update: { hoTen }
+          });
+          break;
+        case 'GIAOVIEN':
+          await tx.giaovien.upsert({
+            where: { nguoiDung: id },
+            create: { maGV: 'GV' + Date.now().toString(), hoTen, nguoiDung: id },
+            update: { hoTen }
+          });
+          break;
+        case 'TAICHINH':
+          await tx.taichinh.upsert({
+            where: { nguoiDung: id },
+            create: { maTC: 'TC' + Date.now().toString(), hoTen, nguoiDung: id },
+            update: { hoTen }
+          });
+          break;
+        case 'PHUHUYNH':
+          await tx.phuhuynh.upsert({
+            where: { nguoiDung: id },
+            create: { maPH: 'PH' + Date.now().toString(), hoTen, nguoiDung: id },
+            update: { hoTen }
+          });
+          break;
+      }
+    }
+
+    return updatedUser;
   });
 };
 

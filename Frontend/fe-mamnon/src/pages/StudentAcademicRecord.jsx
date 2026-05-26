@@ -6,6 +6,8 @@ export default function StudentAcademicRecord() {
   const { user, role } = useAuth();
 
   const [students, setStudents] = useState([]);
+  const [classes, setClasses] = useState([]);
+  const [classFilter, setClassFilter] = useState('');
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [studentDetail, setStudentDetail] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -28,8 +30,21 @@ export default function StudentAcademicRecord() {
   });
 
   useEffect(() => {
+    fetchClasses();
+  }, []);
+
+  useEffect(() => {
     fetchStudents();
-  }, [search]);
+  }, [search, classFilter]);
+
+  const fetchClasses = async () => {
+    try {
+      const res = await api.get('/classes', { params: { role, userId: user?.idND } });
+      setClasses(res.data);
+    } catch (error) {
+      console.error("Error fetching classes:", error);
+    }
+  };
 
   const fetchStudents = async () => {
     try {
@@ -39,10 +54,11 @@ export default function StudentAcademicRecord() {
         role: role === 'PRINCIPAL' ? 'BGH' : 'GIAOVIEN',
         userId: user?.idND
       };
+      if (classFilter) params.lopId = classFilter;
       const res = await api.get('/students', { params });
       setStudents(res.data);
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error fetching students:", error);
     } finally {
       setLoading(false);
     }
@@ -126,8 +142,8 @@ export default function StudentAcademicRecord() {
           <h2 className="text-2xl font-bold tracking-tight text-on-surface">Hồ sơ học tập</h2>
         </header>
 
-        <div className="px-8 py-4">
-          <div className="relative max-w-md">
+        <div className="px-8 py-4 flex gap-4 items-center">
+          <div className="relative flex-1 max-w-md">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <span className="material-symbols-outlined text-on-surface-variant text-[20px]">
                 search
@@ -141,6 +157,16 @@ export default function StudentAcademicRecord() {
               className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-outline-variant/30 bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none text-sm"
             />
           </div>
+          <select
+            value={classFilter}
+            onChange={(e) => setClassFilter(e.target.value)}
+            className="pl-4 pr-10 py-2.5 rounded-xl border border-outline-variant/30 bg-surface-container-lowest text-sm outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%20%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M7%2010l3%203%203-3%22%20stroke%3D%22%236b7280%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_0.5rem_center] bg-no-repeat"
+          >
+            <option value="">Tất cả lớp</option>
+            {classes.map(c => (
+              <option key={c.maLop} value={c.maLop}>{c.tenLop}</option>
+            ))}
+          </select>
         </div>
 
         <div className="px-8 py-2 flex-1 overflow-auto">

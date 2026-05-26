@@ -12,23 +12,43 @@ const getAllStudents = async (filters = {}, user = null) => {
     where.hoTen = { contains: search };
   }
 
-  // Teacher restriction: if user is TEACHER, only show students in their assigned class
-  if (user && user.vaiTro === 'TEACHER') {
-    // We need to fetch the classes this teacher manages
+  // Teacher restriction: if user is TEACHER (or GIAOVIEN), only show students in their assigned or teaching classes
+  if (user && (user.vaiTro === 'TEACHER' || user.vaiTro === 'GIAOVIEN')) {
     const teacher = await prisma.giaovien.findUnique({
-      where: { nguoiDung: user.idND },
-      include: { lopHoc: true }
+      where: { nguoiDung: user.idND }
     });
     
-    if (teacher && teacher.lopHoc.length > 0) {
-      const classIds = teacher.lopHoc.map(l => l.maLop);
-      if (where.lopId && !classIds.includes(where.lopId)) {
-        // Requested a class they don't manage
-        return [];
+    if (teacher) {
+      // Get classes where they are homeroom teacher
+      const homeroomClasses = await prisma.lophoc.findMany({
+        where: { giaoVienId: teacher.maGV },
+        select: { maLop: true }
+      });
+      const homeroomClassIds = homeroomClasses.map(l => l.maLop);
+
+      // Get classes where they have teaching schedules
+      const teachingScheduleClasses = await prisma.lichgiangday.findMany({
+        where: { maGV: teacher.maGV },
+        select: { maLop: true }
+      });
+      const teachingClassIds = teachingScheduleClasses.map(s => s.maLop);
+
+      const allAssignedClassIds = [...new Set([...homeroomClassIds, ...teachingClassIds])];
+
+      if (allAssignedClassIds.length > 0) {
+        if (where.lopId) {
+          if (!allAssignedClassIds.includes(where.lopId)) {
+            // Requested a class they don't manage/teach
+            return [];
+          }
+        } else {
+          where.lopId = { in: allAssignedClassIds };
+        }
+      } else {
+        return []; // Teacher has no assigned/teaching classes
       }
-      where.lopId = { in: classIds };
     } else {
-      return []; // Teacher manages no classes
+      return [];
     }
   }
 

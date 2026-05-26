@@ -17,6 +17,7 @@ export default function UserManagement() {
   const [editingUser, setEditingUser] = useState(null);
   const [formData, setFormData] = useState({
     tenDangNhap: '',
+    hoTen: '',
     email: '',
     soDienThoai: '',
     matKhau: '',
@@ -51,6 +52,7 @@ export default function UserManagement() {
     if (user) {
       setFormData({
         tenDangNhap: user.tenDangNhap,
+        hoTen: user.hoTen || '',
         email: user.email || '',
         soDienThoai: user.soDienThoai || '',
         matKhau: '', // don't show password
@@ -59,6 +61,7 @@ export default function UserManagement() {
     } else {
       setFormData({
         tenDangNhap: '',
+        hoTen: '',
         email: '',
         soDienThoai: '',
         matKhau: '',
@@ -219,8 +222,8 @@ export default function UserManagement() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex flex-col">
-                        <span className="font-semibold text-on-surface">{user.tenDangNhap}</span>
-                        <span className="text-xs text-on-surface-variant">{user.email || 'No email'}</span>
+                        <span className="font-semibold text-on-surface">{user.hoTen || user.tenDangNhap}</span>
+                        <span className="text-xs text-on-surface-variant">{user.tenDangNhap} • {user.email || 'No email'}</span>
                       </div>
                     </td>
                     <td className="px-6 py-4">
@@ -302,6 +305,15 @@ export default function UserManagement() {
                   required
                   value={formData.tenDangNhap}
                   onChange={e => setFormData({ ...formData, tenDangNhap: e.target.value })}
+                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary/20 outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Họ và tên</label>
+                <input
+                  required
+                  value={formData.hoTen}
+                  onChange={e => setFormData({ ...formData, hoTen: e.target.value })}
                   className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary/20 outline-none"
                 />
               </div>

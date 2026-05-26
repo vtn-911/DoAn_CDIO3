@@ -15,7 +15,7 @@ import ChildHealth from './ChildHealth';
 import ChildSchedule from './ChildSchedule';
 import StudentHealth from './StudentHealth';
 import CameraMonitoring from './CameraMonitoring';
-import ChildInformationView from './ChildInformationView';
+
 import ReportsStatistics from './ReportsStatistics';
 import NotificationManagement from './NotificationManagement';
 import RevenueManagement from './RevenueManagement';
@@ -40,7 +40,6 @@ export default function Dashboard() {
       case 'child-schedule': return <ChildSchedule />;
       case 'health': return <StudentHealth />;
       case 'camera': return <CameraMonitoring />;
-
       case 'reports': return <ReportsStatistics />;
       case 'notifications': return <NotificationManagement />;
       case 'revenue': return <RevenueManagement />;
