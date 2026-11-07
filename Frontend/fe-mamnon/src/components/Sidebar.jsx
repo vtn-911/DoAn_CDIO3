@@ -2,18 +2,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useState } from 'react';
 
 const ROLE_MENUS = {
-  ADMIN: [
-    {
-      id: 'accounts',
-      label: 'Quản lý tài khoản',
-      icon: 'person',
-      children: [
-        { id: 'user-accounts', label: 'Tài khoản người dùng' },
-        { id: 'my-account', label: 'Tài khoản cá nhân' }
-      ]
-    }
-  ],
-  PRINCIPAL: [
+  PHONGDAOTAO: [
     { id: 'teacher-management', label: 'Quản lý giáo viên', icon: 'school' },
     { id: 'general-schedule', label: 'Thời khóa biểu', icon: 'calendar_view_week' },
     {
@@ -39,7 +28,7 @@ const ROLE_MENUS = {
       ]
     }
   ],
-  TEACHER: [
+  GIAOVIEN: [
     {
       id: 'students',
       label: 'Quản lý học sinh',
@@ -56,13 +45,13 @@ const ROLE_MENUS = {
     { id: 'notifications', label: 'Quản lý thông báo', icon: 'notifications' },
     { id: 'accounts', label: 'Tài khoản', icon: 'person' },
   ],
-  FINANCE: [
+  TAICHINH: [
     { id: 'revenue', label: 'Quản lý thu chi', icon: 'receipt' },
     { id: 'reports', label: 'Báo cáo và thống kê', icon: 'bar_chart' },
     { id: 'notifications', label: 'Quản lý thông báo', icon: 'notifications' },
     { id: 'accounts', label: 'Tài khoản', icon: 'person' },
   ],
-  PARENT: [
+  PHUHUYNH: [
     { 
       id: 'children-info', 
       label: 'Xem thông tin của con', 

@@ -2,11 +2,10 @@ const authService = require("../services/auth.service");
 const userService = require("../services/user.service");
 
 const roleMap = {
-  ADMIN: 'ADMIN',
-  BGH: 'PRINCIPAL',
-  GIAOVIEN: 'TEACHER',
-  TAICHINH: 'FINANCE',
-  PHUHUYNH: 'PARENT'
+  PHONGDAOTAO: 'PHONGDAOTAO',
+  GIAOVIEN: 'GIAOVIEN',
+  TAICHINH: 'TAICHINH',
+  PHUHUYNH: 'PHUHUYNH'
 };
 
 const login = async (req, res) => {

@@ -13,26 +13,20 @@ async function main() {
   await prisma.phuhuynh.deleteMany({});
   await prisma.lophoc.deleteMany({});
   await prisma.giaovien.deleteMany({});
-  await prisma.bangiamhieu.deleteMany({});
+  await prisma.phongdaotao.deleteMany({});
   await prisma.taichinh.deleteMany({});
-  await prisma.admin.deleteMany({});
   await prisma.thongbao.deleteMany({});
+  await prisma.$executeRawUnsafe('DELETE FROM `admin`');
+  await prisma.$executeRawUnsafe('DELETE FROM `bangiamhieu`');
   await prisma.nguoidung.deleteMany({});
 
   console.log('🌱 Starting seeding...');
 
-  // 1. Static Users (Admin, BGH, TC)
+  // 1. Static Users (Phong dao tao, TC)
   await prisma.nguoidung.create({
     data: {
-      idND: "u_admin", tenDangNhap: "admin", matKhau: "123456", vaiTro: "ADMIN",
-      admin: { create: { maAdmin: "ad1", hoTen: "Admin Tổng" } }
-    }
-  });
-
-  await prisma.nguoidung.create({
-    data: {
-      idND: "u_bgh", tenDangNhap: "bgh1", matKhau: "123456", vaiTro: "BGH",
-      bangiamhieu: { create: { maBGH: "bgh1", hoTen: "Nguyễn Văn Hiệu Trưởng", chucVu: "Hiệu trưởng" } }
+      idND: "u_phongdaotao", tenDangNhap: "phongdaotao", matKhau: "123456", vaiTro: "PHONGDAOTAO",
+      phongdaotao: { create: { maPDT: "pdt1", hoTen: "Phòng Đào Tạo", chucVu: "Phòng đào tạo" } }
     }
   });
 

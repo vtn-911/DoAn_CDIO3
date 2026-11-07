@@ -4,7 +4,7 @@ import api from '../services/api';
 
 export default function StudentAttendance() {
   const { user, role } = useAuth();
-  const isTeacher = role === 'TEACHER';
+  const isTeacher = role === 'GIAOVIEN';
 
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -43,7 +43,7 @@ export default function StudentAttendance() {
     try {
       setLoading(true);
       const params = {
-        role: role === 'PRINCIPAL' ? 'BGH' : 'GIAOVIEN',
+        role: role === 'PHONGDAOTAO' ? 'PHONGDAOTAO' : 'GIAOVIEN',
         userId: user?.idND
       };
       if (classFilter) params.lopId = classFilter;

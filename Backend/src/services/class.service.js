@@ -1,8 +1,8 @@
 const prisma = require("../config/prisma");
 
 const getAllClasses = async (role, userId) => {
-  // If BGH, return all classes
-  if (role === 'BGH' || role === 'PRINCIPAL') {
+  // Phong dao tao can the hien toan bo lop hoc.
+  if (role === 'PHONGDAOTAO') {
     return await prisma.lophoc.findMany({
       include: {
         giaoVien: { select: { hoTen: true, maGV: true } },
@@ -13,7 +13,7 @@ const getAllClasses = async (role, userId) => {
   }
 
   // If Teacher, return assigned or teaching classes
-  if (role === 'GIAOVIEN' || role === 'TEACHER') {
+  if (role === 'GIAOVIEN') {
     const teacher = await prisma.giaovien.findUnique({
       where: { nguoiDung: userId }
     });

@@ -19,7 +19,7 @@ export default function GeneralSchedule() {
       setLoading(true);
       const res = await api.get('/test-schedules', {
         params: {
-          role: role === 'PRINCIPAL' ? 'BGH' : role === 'TEACHER' ? 'GIAOVIEN' : role === 'PARENT' ? 'PHUHUYNH' : role,
+          role,
           userId: user?.idND
         }
       });
@@ -47,14 +47,14 @@ export default function GeneralSchedule() {
   };
 
   const getPageTitle = () => {
-    if (role === 'TEACHER' || role === 'GIAOVIEN') return 'Lịch giảng dạy';
+    if (role === 'GIAOVIEN') return 'Lịch giảng dạy';
     return 'Thời khóa biểu';
   };
 
   const getPageSubtitle = () => {
-    if (role === 'PRINCIPAL' || role === 'BGH') return 'Tổng hợp lịch giảng dạy của tất cả giáo viên';
-    if (role === 'TEACHER' || role === 'GIAOVIEN') return 'Lịch giảng dạy cá nhân của bạn';
-    if (role === 'PARENT' || role === 'PHUHUYNH') return 'Thời khóa biểu học tập của con';
+    if (role === 'PHONGDAOTAO') return 'Tổng hợp lịch giảng dạy của tất cả giáo viên';
+    if (role === 'GIAOVIEN') return 'Lịch giảng dạy cá nhân của bạn';
+    if (role === 'PHUHUYNH') return 'Thời khóa biểu học tập của con';
     return '';
   };
 

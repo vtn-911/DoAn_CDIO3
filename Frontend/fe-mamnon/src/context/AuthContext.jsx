@@ -13,8 +13,12 @@ export function AuthProvider({ children }) {
     const savedUser = localStorage.getItem('user');
     const savedRole = localStorage.getItem('role');
     if (savedUser && savedRole) {
-      setUser(JSON.parse(savedUser));
-      setRole(savedRole);
+      const normalizedRole = ({ ADMIN: 'PHONGDAOTAO', BGH: 'PHONGDAOTAO', PRINCIPAL: 'PHONGDAOTAO', TEACHER: 'GIAOVIEN', FINANCE: 'TAICHINH', PARENT: 'PHUHUYNH' })[savedRole] || savedRole;
+      const normalizedUser = { ...JSON.parse(savedUser), vaiTro: normalizedRole };
+      setUser(normalizedUser);
+      setRole(normalizedRole);
+      localStorage.setItem('user', JSON.stringify(normalizedUser));
+      localStorage.setItem('role', normalizedRole);
     }
   }, []);
 

@@ -4,7 +4,7 @@ import api from '../services/api';
 
 export default function TeacherManagement() {
   const { user, role } = useAuth();
-  const isBGH = role === 'PRINCIPAL' || role === 'BGH';
+  const isBGH = role === 'PHONGDAOTAO';
 
   const [teachers, setTeachers] = useState([]);
   const [loading, setLoading] = useState(true);

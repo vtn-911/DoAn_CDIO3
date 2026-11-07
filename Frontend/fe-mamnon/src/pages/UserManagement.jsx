@@ -117,8 +117,7 @@ export default function UserManagement() {
 
   const getRoleBadgeClass = (role) => {
     switch (role) {
-      case 'ADMIN':
-      case 'BGH':
+      case 'PHONGDAOTAO':
         return 'bg-blue-50 text-blue-700 border-blue-200';
       case 'GIAOVIEN':
         return 'bg-green-50 text-green-700 border-green-200';
@@ -176,8 +175,7 @@ export default function UserManagement() {
                 className="bg-surface-container-lowest border border-outline-variant/30 text-sm rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-primary/10"
               >
                 <option value="All Roles">All Roles</option>
-                <option value="ADMIN">Admin</option>
-                <option value="BGH">BGH</option>
+                <option value="PHONGDAOTAO">Phòng đào tạo</option>
                 <option value="GIAOVIEN">Giáo viên</option>
                 <option value="TAICHINH">Tài chính</option>
                 <option value="PHUHUYNH">Phụ huynh</option>
@@ -353,8 +351,7 @@ export default function UserManagement() {
                   onChange={e => setFormData({ ...formData, vaiTro: e.target.value })}
                   className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary/20 outline-none"
                 >
-                  <option value="ADMIN">Admin</option>
-                  <option value="BGH">BGH</option>
+                  <option value="PHONGDAOTAO">Phòng đào tạo</option>
                   <option value="GIAOVIEN">Giáo viên</option>
                   <option value="TAICHINH">Tài chính</option>
                   <option value="PHUHUYNH">Phụ huynh</option>

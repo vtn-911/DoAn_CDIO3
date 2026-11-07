@@ -18,8 +18,7 @@ const getAllUsers = async (filters = {}) => {
   const users = await prisma.nguoidung.findMany({
     where,
     include: {
-      admin: { select: { hoTen: true } },
-      bangiamhieu: { select: { hoTen: true } },
+      phongdaotao: { select: { hoTen: true } },
       giaovien: { select: { hoTen: true } },
       taichinh: { select: { hoTen: true } },
       phuhuynh: { select: { hoTen: true } },
@@ -29,15 +28,13 @@ const getAllUsers = async (filters = {}) => {
   return users.map(user => {
     let hoTen = '';
     switch (user.vaiTro) {
-      case 'ADMIN': hoTen = user.admin?.hoTen || ''; break;
-      case 'BGH': hoTen = user.bangiamhieu?.hoTen || ''; break;
+      case 'PHONGDAOTAO': hoTen = user.phongdaotao?.hoTen || ''; break;
       case 'GIAOVIEN': hoTen = user.giaovien?.hoTen || ''; break;
       case 'TAICHINH': hoTen = user.taichinh?.hoTen || ''; break;
       case 'PHUHUYNH': hoTen = user.phuhuynh?.hoTen || ''; break;
     }
     const userWithHoTen = { ...user, hoTen };
-    delete userWithHoTen.admin;
-    delete userWithHoTen.bangiamhieu;
+    delete userWithHoTen.phongdaotao;
     delete userWithHoTen.giaovien;
     delete userWithHoTen.taichinh;
     delete userWithHoTen.phuhuynh;
@@ -56,19 +53,10 @@ const createUser = async (data) => {
     const hoTenVal = hoTen || userData.tenDangNhap;
 
     switch (newUser.vaiTro) {
-      case 'ADMIN':
-        await tx.admin.create({
+      case 'PHONGDAOTAO':
+        await tx.phongdaotao.create({
           data: {
-            maAdmin: 'AD' + Date.now().toString(),
-            hoTen: hoTenVal,
-            nguoiDung: newUser.idND
-          }
-        });
-        break;
-      case 'BGH':
-        await tx.bangiamhieu.create({
-          data: {
-            maBGH: 'BGH' + Date.now().toString(),
+            maPDT: 'PDT' + Date.now().toString(),
             hoTen: hoTenVal,
             nguoiDung: newUser.idND
           }
@@ -118,17 +106,10 @@ const updateUser = async (id, data) => {
 
     if (hoTen !== undefined) {
       switch (updatedUser.vaiTro) {
-        case 'ADMIN':
-          await tx.admin.upsert({
+        case 'PHONGDAOTAO':
+          await tx.phongdaotao.upsert({
             where: { nguoiDung: id },
-            create: { maAdmin: 'AD' + Date.now().toString(), hoTen, nguoiDung: id },
-            update: { hoTen }
-          });
-          break;
-        case 'BGH':
-          await tx.bangiamhieu.upsert({
-            where: { nguoiDung: id },
-            create: { maBGH: 'BGH' + Date.now().toString(), hoTen, nguoiDung: id },
+            create: { maPDT: 'PDT' + Date.now().toString(), hoTen, nguoiDung: id },
             update: { hoTen }
           });
           break;
@@ -164,8 +145,7 @@ const deleteUser = async (id) => {
   const user = await prisma.nguoidung.findUnique({
     where: { idND: id },
     include: {
-      admin: true,
-      bangiamhieu: true,
+      phongdaotao: true,
       giaovien: true,
       taichinh: true,
       phuhuynh: true,
@@ -202,17 +182,13 @@ const deleteUser = async (id) => {
       await tx.phuhuynh.delete({ where: { maPH: maPH } });
     }
 
-    if (user.bangiamhieu) {
-      const maBGH = user.bangiamhieu.maBGH;
+    if (user.phongdaotao) {
+      const maPDT = user.phongdaotao.maPDT;
       await tx.lophoc.updateMany({
-        where: { bghId: maBGH },
-        data: { bghId: null }
+        where: { phongDaoTaoId: maPDT },
+        data: { phongDaoTaoId: null }
       });
-      await tx.bangiamhieu.delete({ where: { maBGH: maBGH } });
-    }
-
-    if (user.admin) {
-      await tx.admin.delete({ where: { maAdmin: user.admin.maAdmin } });
+      await tx.phongdaotao.delete({ where: { maPDT } });
     }
 
     if (user.taichinh) {
@@ -235,8 +211,7 @@ const getProfile = async (idND) => {
   const user = await prisma.nguoidung.findUnique({
     where: { idND },
     include: {
-      admin: true,
-      bangiamhieu: true,
+      phongdaotao: true,
       giaovien: true,
       taichinh: true,
       phuhuynh: true,
@@ -248,18 +223,16 @@ const getProfile = async (idND) => {
   let hoTen = '';
   let chucVu = '';
   switch (user.vaiTro) {
-    case 'ADMIN': hoTen = user.admin?.hoTen || ''; break;
-    case 'BGH': 
-      hoTen = user.bangiamhieu?.hoTen || ''; 
-      chucVu = user.bangiamhieu?.chucVu || '';
+    case 'PHONGDAOTAO':
+      hoTen = user.phongdaotao?.hoTen || '';
+      chucVu = user.phongdaotao?.chucVu || '';
       break;
     case 'GIAOVIEN': hoTen = user.giaovien?.hoTen || ''; break;
     case 'TAICHINH': hoTen = user.taichinh?.hoTen || ''; break;
     case 'PHUHUYNH': hoTen = user.phuhuynh?.hoTen || ''; break;
   }
 
-  delete user.admin;
-  delete user.bangiamhieu;
+  delete user.phongdaotao;
   delete user.giaovien;
   delete user.taichinh;
   delete user.phuhuynh;
@@ -283,17 +256,10 @@ const updateProfile = async (idND, data) => {
 
   if (hoTen !== undefined) {
     switch (user.vaiTro) {
-      case 'ADMIN':
-        await prisma.admin.upsert({
+      case 'PHONGDAOTAO':
+        await prisma.phongdaotao.upsert({
           where: { nguoiDung: idND },
-          create: { maAdmin: 'AD' + Date.now(), hoTen, nguoiDung: idND },
-          update: { hoTen }
-        });
-        break;
-      case 'BGH':
-        await prisma.bangiamhieu.upsert({
-          where: { nguoiDung: idND },
-          create: { maBGH: 'BGH' + Date.now(), hoTen, chucVu, nguoiDung: idND },
+          create: { maPDT: 'PDT' + Date.now(), hoTen, chucVu, nguoiDung: idND },
           update: { hoTen, chucVu }
         });
         break;

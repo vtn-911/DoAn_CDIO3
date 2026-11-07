@@ -23,7 +23,7 @@ export default function NotificationManagement() {
     },
     {
       id: 2,
-      sender: 'Ban Giám Hiệu',
+      sender: 'Phòng đào tạo',
       title: 'Thông báo lịch nghỉ lễ 30/4',
       content: 'Trường sẽ nghỉ từ ngày 28/4 đến hết ngày 30/4. Học sinh quay lại học từ ngày 1/5.',
       timestamp: '2025-04-24 14:15',

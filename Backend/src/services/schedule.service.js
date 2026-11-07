@@ -2,18 +2,18 @@ const prisma = require("../config/prisma");
 
 const getSchedules = async (role, userId, maLop) => {
   console.log(`Fetching schedules for role: ${role}, userId: ${userId}`);
-  if (role === 'BGH' || role === 'PRINCIPAL') {
+  if (role === 'PHONGDAOTAO') {
     const data = await prisma.lichgiangday.findMany({
       include: {
         giaoVien: { select: { hoTen: true } },
         lop: { select: { tenLop: true } }
       }
     });
-    console.log(`Found ${data.length} schedules for BGH`);
+    console.log(`Found ${data.length} schedules for PHONGDAOTAO`);
     return data;
   }
 
-  if (role === 'GIAOVIEN' || role === 'TEACHER') {
+  if (role === 'GIAOVIEN') {
     const teacher = await prisma.giaovien.findUnique({
       where: { nguoiDung: userId }
     });
@@ -30,7 +30,7 @@ const getSchedules = async (role, userId, maLop) => {
     return data;
   }
 
-  if (role === 'PHUHUYNH' || role === 'PARENT') {
+  if (role === 'PHUHUYNH') {
     const parent = await prisma.phuhuynh.findUnique({
       where: { nguoiDung: userId },
       include: { hocSinh: { select: { lopId: true } } }

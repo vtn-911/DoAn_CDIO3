@@ -33,7 +33,7 @@ export default function StudentHealth() {
   const fetchStudents = async () => {
     try {
       const params = {
-        role: role === 'PRINCIPAL' ? 'BGH' : 'GIAOVIEN',
+        role: role === 'PHONGDAOTAO' ? 'PHONGDAOTAO' : 'GIAOVIEN',
         userId: user?.idND
       };
       const res = await api.get('/students', { params });

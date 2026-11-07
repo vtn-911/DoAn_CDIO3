@@ -4,7 +4,7 @@ import api from '../services/api';
 
 export default function StudentManagement() {
   const { user, role } = useAuth();
-  const isBGH = role === 'PRINCIPAL' || role === 'BGH';
+  const isBGH = role === 'PHONGDAOTAO';
 
   const [students, setStudents] = useState([]);
   const [classes, setClasses] = useState([]);
@@ -88,7 +88,7 @@ export default function StudentManagement() {
       setLoading(true);
       const params = {
         search,
-        role: role === 'PRINCIPAL' ? 'BGH' : 'GIAOVIEN',
+        role: role === 'PHONGDAOTAO' ? 'PHONGDAOTAO' : 'GIAOVIEN',
         userId: user?.idND
       };
       if (classFilter) params.lopId = classFilter;

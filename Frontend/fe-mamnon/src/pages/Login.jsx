@@ -32,7 +32,7 @@ export default function Login() {
             </div>
 
             <h1 className="text-3xl font-bold text-on-surface mb-2">Mầm Non Plus</h1>
-            <p className="text-sm text-on-surface-variant">Admin Management System</p>
+            <p className="text-sm text-on-surface-variant">Hệ thống quản lý trường mầm non</p>
           </div>
 
           <form onSubmit={handleSubmit} className="px-8 pb-8 space-y-5">

@@ -171,7 +171,7 @@ export default function PersonalAccount() {
                       </div>
                     </div>
 
-                    {profile.vaiTro === 'BGH' && (
+                    {profile.vaiTro === 'PHONGDAOTAO' && (
                       <div className="p-5 rounded-2xl bg-surface-container-low border border-outline-variant/10 flex items-start gap-4 hover:shadow-sm transition-shadow">
                         <div className="w-10 h-10 rounded-full bg-error-container/30 flex items-center justify-center text-error shrink-0">
                           <span className="material-symbols-outlined">work</span>
@@ -230,7 +230,7 @@ export default function PersonalAccount() {
                       />
                     </div>
 
-                    {profile.vaiTro === 'BGH' && (
+                    {profile.vaiTro === 'PHONGDAOTAO' && (
                       <div>
                         <label className="block text-xs font-bold text-on-surface uppercase tracking-wide mb-2">Chức vụ</label>
                         <input

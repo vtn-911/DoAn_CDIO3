@@ -4,7 +4,7 @@ import api from '../services/api';
 
 export default function ClassManagement() {
   const { user, role } = useAuth();
-  const isBGH = role === 'PRINCIPAL' || role === 'BGH';
+  const isBGH = role === 'PHONGDAOTAO';
 
   const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -34,7 +34,7 @@ export default function ClassManagement() {
     try {
       setLoading(true);
       const res = await api.get('/classes', {
-        params: { role: isBGH ? 'BGH' : 'GIAOVIEN', userId: user?.idND }
+        params: { role: isBGH ? 'PHONGDAOTAO' : 'GIAOVIEN', userId: user?.idND }
       });
       setClasses(res.data);
     } catch (error) {

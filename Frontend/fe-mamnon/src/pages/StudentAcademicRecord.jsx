@@ -51,7 +51,7 @@ export default function StudentAcademicRecord() {
       setLoading(true);
       const params = {
         search,
-        role: role === 'PRINCIPAL' ? 'BGH' : 'GIAOVIEN',
+        role: role === 'PHONGDAOTAO' ? 'PHONGDAOTAO' : 'GIAOVIEN',
         userId: user?.idND
       };
       if (classFilter) params.lopId = classFilter;

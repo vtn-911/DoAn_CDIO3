@@ -13,7 +13,7 @@ const getAllStudents = async (filters = {}, user = null) => {
   }
 
   // Teacher restriction: if user is TEACHER (or GIAOVIEN), only show students in their assigned or teaching classes
-  if (user && (user.vaiTro === 'TEACHER' || user.vaiTro === 'GIAOVIEN')) {
+  if (user && user.vaiTro === 'GIAOVIEN') {
     const teacher = await prisma.giaovien.findUnique({
       where: { nguoiDung: user.idND }
     });

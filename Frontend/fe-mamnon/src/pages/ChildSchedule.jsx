@@ -34,7 +34,7 @@ export default function ChildSchedule() {
       // Or we can just use the generic one with role=PHUHUYNH logic if we adapt it
       // For now, let's assume we can pass maLop to a specific endpoint or use existing logic
       const res = await api.get('/schedules', { 
-        params: { role: 'PARENT', userId: user?.idND, maLop: lopId } 
+        params: { role: 'PHUHUYNH', userId: user?.idND, maLop: lopId }
       });
       setSchedules(res.data);
     } catch (error) {
